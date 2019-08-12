@@ -11,10 +11,6 @@ library project Lkql_Interpreter is
    for Source_Dirs use ("src");
    for Ignore_Source_Sub_Dirs use ("lkql, lkql_ada_interpreter");
 
---     package Binder is
---         for Default_Switches ("Ada") use Binder'Default_Switches ("Ada") & ("-E");
---     end Binder;
-
    package Compiler is
       for Default_Switches ("Ada") use ("-gnat12", "-g", "-O0", "-gnata",
                                         "-gnatwa", "-gnatwe", "-gnatyg");
