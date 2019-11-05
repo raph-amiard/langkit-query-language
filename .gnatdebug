@@ -14,6 +14,6 @@ DEBUG.ADA_MEMORY=no
 --  Always show unexpected exceptions, no matter what other traces are active
 
 UNEXPECTED_EXCEPTIONS=yes
-*.EXCEPTIONS=yes
+*.EXCEPTIONS=no
 
 LANGKIT.SOLVER.*=yes
