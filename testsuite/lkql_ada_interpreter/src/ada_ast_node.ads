@@ -13,7 +13,7 @@ package Ada_AST_Node is
    end record;
 
    type Ada_AST_Node_Access is access all Ada_AST_Node;
-   
+
    overriding function Node_Prototypes (Node : Ada_AST_Node) return String;
 
    overriding function "=" (Left, Right : Ada_AST_Node) return Boolean is
