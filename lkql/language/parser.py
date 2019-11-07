@@ -7,7 +7,7 @@ from langkit.expressions import (
     Self, String, No, langkit_property, AbstractKind, Let, If, Property,
     Bind, LogicFalse, LogicTrue, Entity, Not, Var, ArrayLiteral, Predicate
 )
-import langkit.expressions as dsl_expr
+import langkit.expressions as E
 from langkit.envs import add_to_env_kv, EnvSpec, add_env
 from lexer import Token
 
@@ -54,7 +54,8 @@ class LKQLNode(ASTNode):
         """
         pass
 
-    @langkit_property(public=True, return_type=T.TypeDecl.entity, memoized=True)
+    @langkit_property(public=True, return_type=T.TypeDecl.entity,
+                      memoized=True)
     def lookup_type(name=T.Symbol):
         """
         Return the TypeDecl node representing the type with the given name.
@@ -62,8 +63,8 @@ class LKQLNode(ASTNode):
         """
         return Self.node_env.get_first(name).cast_or_raise(TypeDecl)
 
-    @langkit_property(public=True, return_type=T.TypeDecl.entity, external=True,
-                      uses_entity_info=True, uses_envs=True)
+    @langkit_property(public=True, return_type=T.TypeDecl.entity,
+                      external=True, uses_entity_info=True, uses_envs=True)
     def lookup_type_name(name=T.String):
         pass
 
@@ -73,9 +74,11 @@ class LKQLNode(ASTNode):
         Return this node's type.
         A special "error" type will be returned if the node isn't well-typed.
         """
-        return If(Entity.type_eq.solve & Not(Entity.type_var.get_value.is_null),
-                  Entity.type_var.get_value.cast_or_raise(TypeDecl),
-                  Self.lookup_type("error"))
+        return If(
+            Entity.type_eq.solve & Not(Entity.type_var.get_value.is_null),
+            Entity.type_var.get_value.cast_or_raise(TypeDecl),
+            Self.lookup_type("error")
+        )
 
     @langkit_property(public=True, return_type=T.String)
     def type_name():
@@ -232,7 +235,8 @@ class TypeDecl(Declaration):
         """
         Return whether the current type is a subtype of Indexable.
         """
-        return Entity.cast(PrototypeBase).then(lambda p:
+        return Entity.cast(PrototypeBase).then(
+            lambda p:
             (p.identifier.text == String("Indexable")) |
             p.parent_prototype.then(lambda parent: parent.is_indexable, False),
             False
@@ -397,7 +401,7 @@ class Arg(LKQLNode):
         """
         Return whether the argument has a name.
         """
-        return dsl_expr.Not(Self.name.is_null)
+        return E.Not(Self.name.is_null)
 
 
 class NamedArg(Arg):
@@ -591,20 +595,24 @@ class BinOp(Expr):
             Bind(Entity.type_var, Self.lookup_type("bool")),
 
             lambda _=Op.alt_gt:
-            (Entity.operands_type_is("int") | Entity.operands_type_is("string")) &
-            Bind(Entity.type_var, Self.lookup_type("bool")),
+            E.Or(Entity.operands_type_is("int"),
+                 Entity.operands_type_is("string"))
+            & Bind(Entity.type_var, Self.lookup_type("bool")),
 
             lambda _=Op.alt_geq:
-            (Entity.operands_type_is("int") | Entity.operands_type_is("string")) &
-            Bind(Entity.type_var, Self.lookup_type("bool")),
+            E.Or(Entity.operands_type_is("int"),
+                 Entity.operands_type_is("string"))
+            & Bind(Entity.type_var, Self.lookup_type("bool")),
 
             lambda _=Op.alt_lt:
-            (Entity.operands_type_is("int") | Entity.operands_type_is("string")) &
-            Bind(Entity.type_var, Self.lookup_type("bool")),
+            E.Or(Entity.operands_type_is("int"),
+                 Entity.operands_type_is("string"))
+            & Bind(Entity.type_var, Self.lookup_type("bool")),
 
             lambda _=Op.alt_leq:
-            (Entity.operands_type_is("int") | Entity.operands_type_is("string")) &
-            Bind(Entity.type_var, Self.lookup_type("bool")),
+            E.Or(Entity.operands_type_is("int"),
+                 Entity.operands_type_is("string"))
+            & Bind(Entity.type_var, Self.lookup_type("bool")),
         )
     )
 
@@ -658,10 +666,11 @@ class DotAccess(Expr):
     member = Field(type=Identifier)
 
     type_eq = Property(
-        Entity.receiver.get_type.cast(T.PrototypeBase).then(lambda p:
-            p.find_field(Self.member.text).then(lambda s:
-                s.return_type.as_entity.type_eq &
-                Bind(Entity.type_var, s.return_type.as_entity.type_var),
+        Entity.receiver.get_type.cast(T.PrototypeBase).then(
+            lambda p: p.find_field(Self.member.text).then(
+                lambda s:
+                s.return_type.as_entity.type_eq
+                & Bind(Entity.type_var, s.return_type.as_entity.type_var),
                 default_val=LogicFalse()
             ),
             default_val=LogicFalse()
@@ -718,7 +727,8 @@ class Indexing(Expr):
     type_eq = Property(
         Entity.collection_expr.type_eq &
         Entity.index_expr.type_eq &
-        Entity.collection_expr.get_type.cast(T.PrototypeBase).then(lambda t:
+        Entity.collection_expr.get_type.cast(T.PrototypeBase).then(
+            lambda t:
             Predicate(T.TypeDecl.is_indexable, Entity.collection_expr.type_var)
             & Bind(Entity.type_var,
                    t.find_method(String("at")).return_type.as_entity.get_type),
@@ -769,7 +779,7 @@ class BasePattern(LKQLNode):
         Return whether this pattern contains a value part
         that is a chained pattern.
         """
-        return Self.value_part.then(lambda v: v.is_a(ChainedNodePattern), False)
+        return Self.value_part._.is_a(ChainedNodePattern)
 
 
 @abstract
@@ -1041,7 +1051,9 @@ class FunSpecBase(Declaration):
             params=Entity.parameters.map(
                 lambda p: Entity.monomorphize_param(formals, actuals, p)
             ),
-            ret_type=Entity.return_type.as_entity.monomorphize(formals, actuals)
+            ret_type=Entity.return_type.as_entity.monomorphize(
+                formals, actuals
+            )
         )
 
     @langkit_property(return_type=T.ParameterDecl, memoized=True,
@@ -1053,12 +1065,13 @@ class FunSpecBase(Declaration):
             formals, actuals, param.type_annotation.name
         )
 
-        return If(matching_arg.is_null,
-                  param.node,
-                  SynthParameterDecl.new(
-                      param_identifier=param.param_identifier.node,
-                      type_annotation=matching_arg.make_synthetic_type_name
-                  ).cast(ParameterDecl)
+        return If(
+            matching_arg.is_null,
+            param.node,
+            SynthParameterDecl.new(
+                param_identifier=param.param_identifier.node,
+                type_annotation=matching_arg.make_synthetic_type_name
+            ).cast(ParameterDecl)
         )
 
     @langkit_property(return_type=T.TypeDecl.entity, public=False)
@@ -1157,17 +1170,20 @@ class FunCall(Expr):
     arguments = Field(type=Arg.list)
 
     type_eq = Property(
-        Entity.called_spec.then(lambda spec:
+        Entity.called_spec.then(
+            lambda spec:
             # type check the arguments & verrify that the number of arguments
             # matches the arity of the function
             Let(lambda args=Entity.resolved_arguments:
                 If(args.length != spec.arity,
                    LogicFalse(),
-                   args.logic_all(lambda a:
+                   args.logic_all(
+                       lambda a:
                        spec.find_parameter(a.name.text).then(
-                           lambda p: Bind(a.polymorphic_type_var, p.as_entity.type_var) &
-                                     p.as_entity.type_eq &
-                                     a.polymorphic_type_eq,
+                           lambda p:
+                           Bind(a.polymorphic_type_var, p.as_entity.type_var)
+                           & p.as_entity.type_eq
+                           & a.polymorphic_type_eq,
                            LogicFalse()
                        )
                    ))) &
@@ -1207,8 +1223,8 @@ class FunCall(Expr):
                      ._.find_method(Self.name.text),
 
             # Otherwise search the function in the environment.
-            lambda _: Self.node_env.get_first(Self.name.symbol)
-                      ._.cast(FunDecl).spec
+            lambda _:
+            Self.node_env.get_first(Self.name.symbol)._.cast(FunDecl).spec
         )
 
     @langkit_property(return_type=T.FunDecl.entity, public=True)
@@ -1224,16 +1240,18 @@ class FunCall(Expr):
         Return the arguments of this call (default arguments included)
         as named arguments.
         """
-        call_args = Var(Let(lambda spec=Entity.called_spec:
+        call_args = Var(Let(
+            lambda spec=Entity.called_spec:
             If(spec.is_null | (spec.arity < Self.arity),
 
                No(NamedArg.entity.array),
 
-               spec.parameters.map(lambda i, param:
+               spec.parameters.map(
+                   lambda i, param:
                    If(Entity.find_named_arg(param.name).is_null,
-                      # If there is no named argument with the current parameter's
-                      # name, look if there is a positional argument at the
-                      # parameter's position.
+                      # If there is no named argument with the current
+                      # parameter's name, look if there is a positional
+                      # argument at the parameter's position.
                       Let(lambda arg=Entity.arguments.at(i):
                           If(arg.is_null | arg.is_a(NamedArg),
                              No(NamedArg).as_entity,
@@ -1255,8 +1273,8 @@ class FunCall(Expr):
         """
         Return the named argument named 'name', if any.
         """
-        return Entity.arguments.find(lambda a:
-            a.is_a(NamedArg) & (a.name.text == name)
+        return Entity.arguments.find(
+            lambda a: a.is_a(NamedArg) & (a.name.text == name)
         ).cast(NamedArg)
 
     @langkit_property(return_type=NamedArg.entity, public=False, memoized=True)
@@ -1291,7 +1309,8 @@ class SelectorExprMode(LKQLNode):
     """
     Modes for selector values:
         - default: add the value to the result set
-        - rec: add the value to the result set and call the selector recursively
+        - rec: add the value to the result set and call the selector
+               recursively
         - skip: call the selector recursively without adding the value to the
                 result set
     """
@@ -1339,15 +1358,15 @@ class SelectorArm(LKQLNode):
 
     type_eq = Property(
         Entity.pattern.type_eq &
-        Entity.exprs_list.logic_all(lambda e:
-            e.polymorphic_type_eq
+        Entity.exprs_list.logic_all(
+            lambda e: e.polymorphic_type_eq
         )
     )
 
     type_domain = Property(
-        Entity.exprs_list.mapcat(lambda e:
-            e.expr.get_type.cast(T.PrototypeBase).then(lambda p:
-                ArrayLiteral([p]).concat(p.supertypes),
+        Entity.exprs_list.mapcat(
+            lambda e: e.expr.get_type.cast(T.PrototypeBase).then(
+                lambda p: ArrayLiteral([p]).concat(p.supertypes),
                 default_val=ArrayLiteral(
                     [], element_type=T.PrototypeBase.entity
                 )
@@ -1404,7 +1423,8 @@ class SelectorCall(LKQLNode):
     args = Field(type=NamedArg.list)
 
     type_eq = Property(
-        Self.args.logic_all(lambda a:
+        Self.args.logic_all(
+            lambda a:
             If(Entity.check_argument(a.name.text), LogicTrue(), LogicFalse())
         ) &
         Bind(Entity.type_var, Self.lookup_type("unit"))
@@ -1485,14 +1505,19 @@ class SelectorCall(LKQLNode):
     def check_argument(arg_name=T.String):
         """
         Return true if `arg_name` is a valid name (depth|min_depth|max_depth),
-        there is at most one argument with the given name, and it's type is int.
+        there is at most one argument with the given name, and it's type is
+        int.
         """
-        filtered_args = Var(Entity.args.filter(lambda a: a.name.text == arg_name))
-        return ((arg_name == String("depth")) |
-               (arg_name == String("max_depth")) |
-               (arg_name == String("min_depth"))) & \
-               (filtered_args.length <= 1) & \
-               (filtered_args.at(0).get_type == Self.lookup_type("int"))
+        filtered_args = Var(
+            Entity.args.filter(lambda a: a.name.text == arg_name)
+        )
+        return E.And(
+            E.Or(arg_name == String("depth"),
+                 arg_name == String("max_depth"),
+                 arg_name == String("min_depth")),
+            filtered_args.length <= 1,
+            filtered_args.at(0).get_type == Self.lookup_type("int")
+        )
 
 
 @abstract
@@ -1517,7 +1542,8 @@ class NodeKindPattern(NodePattern):
     )
 
     type_var_dbg_name = Property(
-        String("NodeKindPattern(").concat(Self.kind_name.text).concat(String(")"))
+        String("NodeKindPattern(")
+        .concat(Self.kind_name.text).concat(String(")"))
     )
 
 
@@ -1588,7 +1614,8 @@ class NodePatternSelector(NodePatternDetail):
 
 class ExtendedNodePattern(NodePattern):
     """
-    Node pattern of the form: KindName(field: val, prop: val, selector: Pattern)
+    Node pattern of the form::
+        KindName(field: val, prop: val, selector: Pattern)
 
     For instance::
         ObjectDecl(children: AspectAssoc)
@@ -1599,8 +1626,8 @@ class ExtendedNodePattern(NodePattern):
     type_eq = Property(
         Entity.node_pattern.polymorphic_type_eq &
 
-        Entity.details.logic_all(lambda detail:
-            detail.match(
+        Entity.details.logic_all(
+            lambda detail: detail.match(
                 lambda s=NodePatternSelector:
                     # The selector call is well typed.
                     s.call.type_eq &
@@ -1617,18 +1644,21 @@ class ExtendedNodePattern(NodePattern):
                         s.call.called_selector.result_type_domain
                     ),
                 lambda s=NodePatternField:
-                    Entity.node_pattern.get_type.cast(T.PrototypeBase)._
-                        .find_field(s.identifier.text).then(lambda f:
-                            f.return_type.as_entity.polymorphic_type_eq &
-                            Bind(Entity.type_var,
-                                 f.return_type.as_entity.polymorphic_type_var),
-                            default_val=LogicFalse()),
+                    Entity.node_pattern.get_type.cast(T.PrototypeBase)
+                    ._.find_field(s.identifier.text).then(
+                        lambda f:
+                        f.return_type.as_entity.polymorphic_type_eq
+                        & Bind(Entity.type_var,
+                               f.return_type.as_entity.polymorphic_type_var),
+                        default_val=LogicFalse()
+                    ),
                 lambda s=NodePatternProperty:
                     Entity.node_pattern.get_type.cast(T.PrototypeBase)._
-                    .find_property(s.call.name.text).then(lambda f:
-                        f.return_type.as_entity.polymorphic_type_eq &
-                        Bind(Entity.type_var,
-                             f.return_type.as_entity.polymorphic_type_var),
+                    .find_property(s.call.name.text).then(
+                        lambda f:
+                        f.return_type.as_entity.polymorphic_type_eq
+                        & Bind(Entity.type_var,
+                               f.return_type.as_entity.polymorphic_type_var),
                         default_val=LogicFalse()
                     )
             )
@@ -1640,6 +1670,7 @@ class ExtendedNodePattern(NodePattern):
     type_var_dbg_name = Property(
         String("ExtPattern(").concat(Self.text).concat(String(")"))
     )
+
 
 @abstract
 class ChainedPatternLink(LKQLNode):
@@ -1755,13 +1786,11 @@ class PrototypeBase(TypeDecl):
     kind = Field(type=PrototypeKind)
     identifier = Field(type=Identifier)
 
-    type_eq = Property(
-        Let(lambda t=Entity.lookup_type(Self.identifier.symbol)
-                        .cast(T.PrototypeBase)
-            : Entity.type_var.domain(
-                ArrayLiteral([t]).concat(Entity.supertypes)
-        ))
-    )
+    type_eq = Property(Let(
+        lambda
+        t=Entity.lookup_type(Self.identifier.symbol).cast(T.PrototypeBase):
+            Entity.type_var.domain(ArrayLiteral([t]).concat(Entity.supertypes))
+    ))
 
     type_var_dbg_name = Property(
         String("PrototypeBase(").concat(Entity.name).concat(String(")"))
@@ -1815,7 +1844,8 @@ class PrototypeBase(TypeDecl):
         """
         return Entity.parent_reference._.get_type.cast(PrototypeBase)
 
-    @langkit_property(return_type=T.SynthPrototype, public=False, memoized=True)
+    @langkit_property(return_type=T.SynthPrototype, public=False,
+                      memoized=True)
     def apply_type_args(args=TypeDecl.entity.array):
         return If(
             args.length != Entity.type_parameters.length,
@@ -1825,11 +1855,14 @@ class PrototypeBase(TypeDecl):
                 identifier=Self.identifier,
                 full_name=Entity.format_name(args.map(lambda a: a.name)),
                 type_params=(No(TypeParameter.entity.array)),
-                parent_ref=Entity.parent_reference._
-                    .monomorphize(Entity.type_parameters, args),
+
+                parent_ref=Entity.parent_reference
+                ._.monomorphize(Entity.type_parameters, args),
+
                 specs=Entity.fun_specs.map(
-                    lambda s: s.monomorphize(Entity.type_parameters, args)\
-                        .cast(FunSpecBase).as_entity
+                    lambda s:
+                    s.monomorphize(Entity.type_parameters, args)
+                    .cast(FunSpecBase).as_entity
                 )
             )
         )
@@ -1839,7 +1872,7 @@ class PrototypeBase(TypeDecl):
         return Self.identifier.text.concat(
             If(type_names.length == 0,
                String(""),
-               String("<").concat(Entity.format_args(type_names))\
+               String("<").concat(Entity.format_args(type_names))
                .concat(String(">")))
         )
 
@@ -1906,7 +1939,6 @@ class PrototypeBase(TypeDecl):
     def find_member(name=T.String, members=T.FunSpecBase.entity.array):
         return members.find(lambda m: m.name.text == name)
 
-
     @langkit_property(return_type=T.Bool, public=True)
     def is_node_prototype():
         """
@@ -1970,13 +2002,13 @@ class ParametrizedGenericBase(TypeRef):
 
     @langkit_property()
     def type_eq():
-        return Entity.type_parameters.logic_all(lambda p: p.type_eq) & \
-               Entity.prototype_name.type_eq & \
-               Entity.prototype_name.get_type.cast(Prototype) \
-                   ._.apply_type_args(
-                          Entity.type_parameters.map(lambda t: t.get_type)
-                   ).then(lambda p: Bind(Entity.type_var, p),
-                          LogicFalse())
+        return E.And(
+            Entity.type_parameters.logic_all(lambda p: p.type_eq),
+            Entity.prototype_name.type_eq,
+            Entity.prototype_name.get_type.cast(Prototype)._.apply_type_args(
+                Entity.type_parameters.map(lambda t: t.get_type)
+            ).then(lambda p: Bind(Entity.type_var, p), LogicFalse())
+        )
 
     @langkit_property(public=True, memoized=True, kind=AbstractKind.abstract,
                       return_type=T.TypeRef.entity.array)
@@ -1997,22 +2029,21 @@ class ParametrizedGenericBase(TypeRef):
 
     @langkit_property(return_type=T.String, public=False)
     def format_args(pos=(T.Int, 0)):
-        return If(pos >= Entity.type_parameters.length,
-                  String(""),
-                  Let(lambda name=Entity.type_parameters.at(pos).name:
-                      If(pos == 0,
-                         name,
-                         String(", ").concat(name))
-                  ).concat(Entity.format_args(pos + 1))
-               )
+        return If(
+            pos >= Entity.type_parameters.length,
+            String(""),
+            Let(lambda name=Entity.type_parameters.at(pos).name:
+                If(pos == 0, name, String(", ").concat(name)))
+            .concat(Entity.format_args(pos + 1))
+        )
 
     @langkit_property(memoized=True)
     def monomorphize(formals=T.TypeParameter.entity.array,
                      actuals=T.TypeDecl.entity.array):
         return SynthParametrizedGeneric.new(
             prototype_name=Self.prototype_name,
-            parameters=Entity.type_parameters.map(lambda p:
-                p.monomorphize(formals, actuals)
+            parameters=Entity.type_parameters.map(
+                lambda p: p.monomorphize(formals, actuals)
             )
         )
 
@@ -2050,12 +2081,12 @@ lkql_grammar.add_rules(
     main_rule=List(Or(G.decl, G.expr),
                    list_cls=TopLevelList),
 
-    query=Query(Token.QueryTok, G.pattern),
+    query=Query("query", G.pattern),
 
-    pattern=Or(FilteredPattern(G.unfiltered_pattern_optional_chain,
-                               Token.When,
-                               G.expr),
-               G.unfiltered_pattern_optional_chain),
+    pattern=Or(
+        FilteredPattern(G.unfiltered_pattern_optional_chain, "when", G.expr),
+        G.unfiltered_pattern_optional_chain
+    ),
 
     unfiltered_pattern_optional_chain=Or(
         ChainedNodePattern(
@@ -2067,14 +2098,14 @@ lkql_grammar.add_rules(
         G.unfiltered_pattern
     ),
 
-    unfiltered_pattern=Or(FullPattern(G.identifier, Token.At, G.value_pattern),
+    unfiltered_pattern=Or(FullPattern(G.identifier, "@", G.value_pattern),
                           BindingPattern(G.identifier),
                           G.value_pattern),
 
     value_pattern=Or(G.node_pattern,
                      G.universal_pattern),
 
-    universal_pattern=UniversalPattern(Token.UnderScore),
+    universal_pattern=UniversalPattern("_"),
 
     node_pattern=Or(G.extended_node_pattern, G.node_kind_pattern),
 
@@ -2084,95 +2115,95 @@ lkql_grammar.add_rules(
 
     extended_node_pattern=ExtendedNodePattern(Or(G.universal_pattern,
                                                  G.node_kind_pattern),
-                                              Pick(Token.LPar,
+                                              Pick("(",
                                                    List(G.node_pattern_detail,
-                                                        sep=Token.Coma),
-                                                   Token.RPar)),
+                                                        sep=","),
+                                                   ")")),
 
     node_pattern_detail=Or(NodePatternSelector(
         SelectorCall(G.identifier,
-                     Opt(Pick(G.identifier, Token.At)),
+                     Opt(Pick(G.identifier, "@")),
                      G.identifier,
-                     Opt(Token.LPar,
+                     Opt("(",
                          List(G.named_arg,
-                              sep=Token.Coma,
+                              sep=",",
                               empty_valid=False),
-                         Token.RPar)),
-        Token.Colon,
+                         ")")),
+        ":",
         G.pattern),
         NodePatternField(G.identifier,
-                         Token.Colon,
+                         ":",
                          G.detail_value),
         NodePatternProperty(G.fun_call,
-                            Token.Colon,
+                            ":",
                             G.detail_value)),
 
     selector_call=SelectorCall(G.identifier,
-                               Opt(Pick(G.identifier, Token.At)),
+                               Opt(Pick(G.identifier, "@")),
                                G.identifier,
-                               Opt(Token.LPar,
+                               Opt("(",
                                    List(G.named_arg,
-                                        sep=Token.Coma,
+                                        sep=",",
                                         empty_valid=False),
-                                   Token.RPar)),
+                                   ")")),
 
-    arrow_assoc=ArrowAssoc(G.identifier, Token.LArrow, G.expr),
+    arrow_assoc=ArrowAssoc(G.identifier, "<-", G.expr),
 
-    listcomp=ListComprehension(Token.LBrack,
+    listcomp=ListComprehension("[",
                                G.expr,
-                               Token.Pipe,
+                               "|",
                                List(G.arrow_assoc,
-                                    sep=Token.Coma, empty_valid=False),
-                               Opt(Token.Coma, G.expr),
-                               Token.RBrack),
+                                    sep=",", empty_valid=False),
+                               Opt(",", G.expr),
+                               "]"),
 
     decl=Or(G.fun_decl,
             G.selector_decl,
             G.assign,
             G.prototype,
-            BuiltinTypeDecl(Token.Builtin,
+            BuiltinTypeDecl("BUILTIN_DECL",
                             Identifier(Or(Token.Identifier, Token.KindName)),
-                            Token.SemiCol)),
+                            ";")),
 
     expr=Or(BinOp(G.expr,
-                  Or(Op.alt_and(Token.And),
-                     Op.alt_or(Token.Or)),
+                  Or(Op.alt_and("&&"),
+                     Op.alt_or("||")),
                   G.comp_expr),
             G.comp_expr,
             G.val_expr),
 
-    comp_expr=Or(IsClause(G.comp_expr, Token.Is, G.pattern),
-                 InClause(G.comp_expr, Token.In, G.expr),
-                 NotOp(Token.Not, G.expr),
+    comp_expr=Or(IsClause(G.comp_expr, "is", G.pattern),
+                 InClause(G.comp_expr, "in", G.expr),
+                 NotOp("not", G.expr),
                  BinOp(G.comp_expr,
-                       Or(Op.alt_eq(Token.EqEq),
-                          Op.alt_neq(Token.Neq),
-                          Op.alt_concat(Token.Amp),
-                          Op.alt_lt(Token.Lt),
-                          Op.alt_leq(Token.LEq),
-                          Op.alt_gt(Token.Gt),
-                          Op.alt_geq(Token.GEq)),
+                       Or(Op.alt_eq("=="),
+                          Op.alt_neq("!="),
+                          Op.alt_concat("&"),
+                          Op.alt_lt("<"),
+                          Op.alt_leq("<="),
+                          Op.alt_gt(">"),
+                          Op.alt_geq(">=")),
                        G.plus_expr),
                  G.plus_expr),
 
     plus_expr=Or(BinOp(G.plus_expr,
-                       Or(Op.alt_plus(Token.Plus),
-                          Op.alt_minus(Token.Minus)),
+                       Or(Op.alt_plus("+"),
+                          Op.alt_minus("-")),
                        G.prod_expr),
                  G.prod_expr),
 
     prod_expr=Or(BinOp(G.prod_expr,
-                       Or(Op.alt_mul(Token.Mul),
-                          Op.alt_div(Token.Div)),
+                       Or(Op.alt_mul("*"),
+                          Op.alt_div("/")),
                        G.value_expr),
                  G.value_expr),
 
-    value_expr=Or(Unwrap(G.value_expr, Token.ExclExcl),
-                  DotCall(G.value_expr, Token.Dot, G.fun_call),
-                  SafeCall(G.value_expr, Token.QuestionDot, G.fun_call),
-                  DotAccess(G.value_expr, Token.Dot, G.identifier),
-                  SafeAccess(G.value_expr, Token.QuestionDot, G.identifier),
-                  Indexing(G.value_expr, Token.LBrack, G.expr, Token.RBrack),
+    value_expr=Or(Unwrap(G.value_expr, "!!"),
+                  DotCall(G.value_expr, ".", G.fun_call),
+                  SafeCall(G.value_expr, "?.", G.fun_call),
+                  DotAccess(G.value_expr, ".", G.identifier),
+                  SafeAccess(G.value_expr, "?.", G.identifier),
+                  Indexing(G.value_expr, "[", G.expr, "]"),
                   G.fun_call,
                   G.query,
                   G.listcomp,
@@ -2181,92 +2212,79 @@ lkql_grammar.add_rules(
                   G.string_literal,
                   G.bool_literal,
                   G.unit_literal,
-                  NullLiteral(Token.Null),
+                  NullLiteral("null"),
                   G.integer,
-                  Pick(Token.LPar, G.expr, Token.RPar),
+                  Pick("(", G.expr, ")"),
                   G.if_then_else),
 
-    val_expr=ValExpr(ValDecl(Token.Val, G.identifier, Token.Eq, G.expr),
-                     Token.SemiCol,
-                     G.expr),
+    val_expr=ValExpr(ValDecl("val", G.identifier, "=", G.expr), ";", G.expr),
 
-    assign=Assign(Token.Let,
-                  G.identifier,
-                  Token.Colon,
-                  G.type_ref,
-                  Token.Eq,
-                  G.expr),
+    assign=Assign("let", G.identifier, ":", G.type_ref, "=", G.expr),
 
-    fun_kind=Or(FunKind.alt_function(Token.Fun),
-                FunKind.alt_property(Token.Property),
-                FunKind.alt_field(Token.Field)),
+    fun_kind=Or(FunKind.alt_function("fun"),
+                FunKind.alt_property("property"),
+                FunKind.alt_field("field")),
 
     fun_spec=FunSpec(G.fun_kind,
                      G.identifier,
-                     Token.LPar,
-                     List(G.param, empty_valid=True, sep=Token.Coma),
-                     Token.RPar,
-                     Token.RArrow,
+                     "(",
+                     List(G.param, empty_valid=True, sep=","),
+                     ")",
+                     "->",
                      G.type_ref),
 
-    fun_decl=FunDecl(G.fun_spec,
-                     Token.Eq,
-                     G.expr),
+    fun_decl=FunDecl(G.fun_spec, "=", G.expr),
 
-    fun_call=FunCall(G.identifier,
-                     Token.LPar,
-                     List(G.arg, empty_valid=True, sep=Token.Coma),
-                     Token.RPar),
+    fun_call=FunCall(
+        G.identifier, "(", List(G.arg, empty_valid=True, sep=","), ")"
+    ),
 
-    selector_decl=SelectorDecl(Token.Selector,
+    selector_decl=SelectorDecl("selector",
                                G.identifier,
                                List(G.selector_arm, empty_valid=False)),
 
-    selector_arm=SelectorArm(Token.Pipe,
+    selector_arm=SelectorArm("|",
                              G.pattern,
-                             Token.BigRArrow,
+                             "=>",
                              List(G.selector_expr,
-                                  empty_valid=False, sep=Token.Box)),
+                                  empty_valid=False, sep="<>")),
 
-    selector_expr=SelectorExpr(Or(SelectorExprMode.alt_rec(Token.Rec),
-                                  SelectorExprMode.alt_skip(Token.Skip),
+    selector_expr=SelectorExpr(Or(SelectorExprMode.alt_rec("rec"),
+                                  SelectorExprMode.alt_skip("skip"),
                                   SelectorExprMode.alt_default()),
                                G.unpackable_expr),
 
-    unpackable_expr=Or(G.expr, Unpack(Token.Mul, G.expr)),
+    unpackable_expr=Or(G.expr, Unpack("*", G.expr)),
 
-    match=Match(Token.Match, G.expr, List(G.match_arm, empty_valid=False)),
+    match=Match("match", G.expr, List(G.match_arm, empty_valid=False)),
 
-    match_arm=MatchArm(Token.Pipe,
+    match_arm=MatchArm("|",
                        G.pattern,
-                       Token.BigRArrow,
+                       "=>",
                        G.expr),
 
-        if_then_else=IfThenElse(
-            Token.If, G.expr, Token.Then, G.expr, Token.Else, G.expr
-        ),
+    if_then_else=IfThenElse("if", G.expr, "then", G.expr, "else", G.expr),
 
     type_name=TypeName(Identifier(Or(Token.Identifier, Token.KindName))),
 
-    type_ref=Or(ParametrizedGeneric(G.type_name,
-                                     Token.Lt,
-                                     List(G.type_ref, sep=Token.Coma),
-                                     Token.Gt),
-                 G.type_name),
+    type_ref=Or(
+        ParametrizedGeneric(G.type_name, "<", List(G.type_ref, sep=","), ">"),
+        G.type_name
+    ),
 
-    prototype_kind=Or(PrototypeKind.alt_prototype(Token.Prototype),
-                      PrototypeKind.alt_astnode(Token.AstNode)),
+    prototype_kind=Or(PrototypeKind.alt_prototype("prototype"),
+                      PrototypeKind.alt_astnode("astnode")),
 
     prototype=Prototype(G.prototype_kind,
                         G.kind_name,
-                        Opt(Token.Lt,
-                            List(G.type_parameter, sep=Token.Coma,
+                        Opt("<",
+                            List(G.type_parameter, sep=",",
                                  empty_valid=False),
-                            Token.Gt),
-                        Opt(Token.Colon, G.type_ref),
-                        Token.LCurl,
+                            ">"),
+                        Opt(":", G.type_ref),
+                        "{",
                         List(G.fun_spec, empty_valid=True),
-                        Token.RCurl),
+                        "}"),
 
     type_parameter=TypeParameter(Identifier(Or(Token.Identifier,
                                                Token.KindName))),
@@ -2277,21 +2295,17 @@ lkql_grammar.add_rules(
 
     integer=IntegerLiteral(Token.Integer),
 
-    bool_literal=Or(BoolLiteral.alt_true(Token.TrueLit),
-                    BoolLiteral.alt_false(Token.FalseLit)),
+    bool_literal=Or(BoolLiteral.alt_true("true"),
+                    BoolLiteral.alt_false("false")),
 
     string_literal=StringLiteral(Token.String),
 
-    unit_literal=UnitLiteral(Token.LPar, Token.RPar),
+    unit_literal=UnitLiteral("(", ")"),
 
-    arg=Or(NamedArg(G.identifier, Token.Eq, G.expr), ExprArg(G.expr)),
+    arg=Or(NamedArg(G.identifier, "=", G.expr), ExprArg(G.expr)),
 
-    named_arg=NamedArg(G.identifier, Token.Eq, G.expr),
+    named_arg=NamedArg(G.identifier, "=", G.expr),
 
-    param=Or(DefaultParam(G.identifier,
-                          Token.Colon,
-                          G.type_ref,
-                          Token.Eq,
-                          G.expr),
-             ParameterDecl(G.identifier, Token.Colon, G.type_ref))
+    param=Or(DefaultParam(G.identifier, ":", G.type_ref, "=", G.expr),
+             ParameterDecl(G.identifier, ":", G.type_ref))
 )
