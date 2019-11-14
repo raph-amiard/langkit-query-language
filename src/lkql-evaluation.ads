@@ -2,10 +2,14 @@ with Iters.Maps;
 with Iters.Iterators;
 with LKQL.Primitives;       use LKQL.Primitives;
 with LKQL.Eval_Contexts;    use LKQL.Eval_Contexts;
+with GNATCOLL.Traces;
 
 with Langkit_Support.Text; use Langkit_Support.Text;
 
 package LKQL.Evaluation is
+
+   Eval_Trace : GNATCOLL.Traces.Trace_Handle :=
+     GNATCOLL.Traces.Create ("LKQL.EVAL");
 
    function Check_And_Eval
      (Ctx  : Eval_Context; Node : L.LKQL_Node'Class) return Primitive;

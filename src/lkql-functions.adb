@@ -1,3 +1,5 @@
+with GNATCOLL.Traces; use GNATCOLL.Traces;
+
 with LKQL.Evaluation;     use LKQL.Evaluation;
 with LKQL.Error_Handling; use LKQL.Error_Handling;
 
@@ -16,8 +18,29 @@ package body LKQL.Functions is
    function Eval_Fun_Call
      (Ctx : Eval_Context; Call : L.Fun_Call) return Primitive
    is
-     (if Call.P_Is_Builtin_Call then Eval_Builtin_Call (Ctx, Call)
-      else Eval_User_Fun_Call (Ctx, Call, Call.P_Called_Function));
+   begin
+      return Ret : Primitive do
+         if Eval_Trace.Active then
+            GNATCOLL.Traces.Trace
+              (Eval_Trace,
+               "Evaluating call " & Call.Short_Image & ", " & Call.Debug_Text);
+
+            Eval_Trace.Increase_Indent;
+         end if;
+
+         Ret :=
+           (if Call.P_Is_Builtin_Call
+            then Eval_Builtin_Call (Ctx, Call)
+            else Eval_User_Fun_Call (Ctx, Call, Call.P_Called_Function));
+
+         if Eval_Trace.Active then
+            Eval_Trace.Decrease_Indent;
+            GNATCOLL.Traces.Trace
+              (Eval_Trace,
+               "Result : " & Image (To_Text (To_Unbounded_Text (Ret))));
+         end if;
+      end return;
+   end Eval_Fun_Call;
 
    ------------------------
    -- Eval_User_Fun_Call --
@@ -30,8 +53,18 @@ package body LKQL.Functions is
       Args_Bindings : constant Environment_Map :=
         Eval_Arguments (Ctx, Call.P_Resolved_Arguments);
       Fun_Ctx       : constant Eval_Context :=
-           (if Ctx.Is_Root_Context then Ctx else Ctx.Parent_Context);
+        (if Ctx.Is_Root_Context then Ctx else Ctx.Parent_Context);
+      use String_Value_Maps;
    begin
+      if Eval_Trace.Active then
+         Eval_Trace.Decrease_Indent;
+         for El in Args_Bindings.Iterate loop
+            Eval_Trace.Trace
+              ("Arg """ & Image (To_Text (Key (El))) & """ = "
+               & Image (To_Text (To_Unbounded_Text (Element (El)))));
+         end loop;
+         Eval_Trace.Increase_Indent;
+      end if;
       return Eval
         (Fun_Ctx, Def.F_Body_Expr, Local_Bindings => Args_Bindings);
    end Eval_User_Fun_Call;

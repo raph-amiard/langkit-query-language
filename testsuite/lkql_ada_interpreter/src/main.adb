@@ -7,6 +7,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with GNATCOLL.VFS;       use GNATCOLL.VFS;
 with GNATCOLL.Opt_Parse; use GNATCOLL.Opt_Parse;
+with GNATCOLL.Traces;
 
 --  Usage:
 --  main [SCRIPT_PATH] [PROJECT_PATH] [OPTIONS]
@@ -61,6 +62,7 @@ procedure Main is
    end Arg;
 
 begin
+   GNATCOLL.Traces.Parse_Config_File;
    if not Arg.Parser.Parse then
       return;
    end if;
