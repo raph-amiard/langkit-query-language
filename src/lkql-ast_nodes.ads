@@ -130,8 +130,8 @@ package LKQL.AST_Nodes is
                                Property_Name : Text_Type;
                                Arg_Position  : Positive)
                                return Introspection_Value is abstract;
-   --  Return the default value (if any) of the argument named
-   --  'Arg_Poisition' of 'Node's property named 'Property_Name'.
+   --  Return the default value (if any) of the argument at position
+   --  'Arg_Position' of 'Node's property named 'Property_Name'.
 
    function Evaluate_Property
      (Node          : AST_Node;
