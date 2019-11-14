@@ -766,6 +766,7 @@ class BasePattern(LKQLNode):
         """
         return No(ValuePattern)
 
+    # TODO: this could be an abstract field
     @langkit_property(return_type=T.Expr, public=True)
     def predicate_part():
         """
