@@ -1,4 +1,4 @@
-from util import read_to_string
+from util import read_to_string, print_diff
 from e3.testsuite.driver import BasicTestDriver
 from e3.testsuite.process import Run
 from e3.testsuite.result import TestStatus
@@ -8,8 +8,8 @@ import os
 class ParserDriver(BasicTestDriver):
     """
     Compare the output of LKQL's `parse` program on the script in the `input`
-    file to the expected output in the `output` text file. Tests pass iff the output
-    is the same.
+    file to the expected output in the `output` text file. Tests pass iff the
+    output is the same.
 
     Note that this compares the output of `parse` passing to it the
     `--hide-slocs` option.
@@ -38,7 +38,7 @@ class ParserDriver(BasicTestDriver):
         if process.err is not None:
             status = TestStatus.ERROR
         else:
-            output = process.out.strip()
+            output = process.out
             expected = read_to_string(output_file)
 
             self.result.env['expected'] = expected
@@ -46,6 +46,11 @@ class ParserDriver(BasicTestDriver):
 
             if output != expected:
                 status = TestStatus.FAIL
+                print_diff(expected, output)
+                if self.env.rewrite:
+                    print "rewriting test ..."
+                    with open(output_file, "w") as out_file:
+                        out_file.write(output)
 
         self.result.set_status(status)
         self.push_result()
@@ -56,4 +61,4 @@ class ParserDriver(BasicTestDriver):
         Return the path of the `parse` binary.
         """
         project_root = os.path.dirname(os.getcwd())
-        return os.path.join(project_root, 'lkql', 'build', 'bin', 'parse')
+        return os.path.join(project_root, 'build', 'bin', 'parse')

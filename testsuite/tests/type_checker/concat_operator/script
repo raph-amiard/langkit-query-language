@@ -1,5 +1,0 @@
-"Hello" & " World"
-"Hello" & 42
-"Hello" & false
-"Hello" & ()
-42 & "Hello"

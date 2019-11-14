@@ -1,4 +1,7 @@
 main.adb
+
 Error: Type error: expected Bool but got Str
+
 let p: List = query p when "Hello"
                            ^^^^^^^
+

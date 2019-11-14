@@ -1,7 +1,11 @@
-from e3.fs import mkdir
-from e3.os.process import Run
+import difflib
 import os
 import sys
+
+from e3.fs import mkdir
+from e3.os.process import Run
+
+from colorama import Fore, Style
 
 TESTSUITE_ROOT_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +23,8 @@ def make_interpreter(gcov=False):
     # Compute gprbuild invocation
     gprbuild = [
         'gprbuild', os.path.join('..', 'lkql_ada_interpreter',
-                                 'lkql_ada_interpreter.gpr'), '-j0'
+                                 'lkql_ada_interpreter.gpr'), '-j0',
+        '-XLIBRARY_TYPE=relocatable'
     ]
 
     if gcov:
@@ -34,5 +39,12 @@ def make_interpreter(gcov=False):
 
 def read_to_string(path):
     with open(path, 'r') as f:
-        text = f.read()
-    return text.strip()
+        return f.read()
+
+
+def print_diff(a, b):
+    print Fore.RED
+    print "\n".join(difflib.unified_diff(
+        a.splitlines(), b.splitlines(), lineterm=''
+    ))
+    print Style.RESET_ALL

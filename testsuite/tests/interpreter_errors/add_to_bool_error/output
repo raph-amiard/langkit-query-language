@@ -1,2 +1,3 @@
 main.adb
+
 raised LKQL.PRIMITIVES.UNSUPPORTED_ERROR : Expected Int but got Bool

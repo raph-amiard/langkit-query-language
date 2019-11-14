@@ -1,4 +1,4 @@
-from util import read_to_string, INTERPRETER_PATH
+from util import read_to_string, INTERPRETER_PATH, print_diff
 from e3.testsuite.driver import BasicTestDriver
 from e3.testsuite.process import Run
 from e3.testsuite.result import TestStatus
@@ -47,7 +47,8 @@ class InterpreterDriver(BasicTestDriver):
     def run(self, prev):
         test_dir = os.path.dirname(self.test_env['test_case_file'])
         script_path = os.path.join(test_dir, 'script')
-        expected = read_to_string(os.path.join(test_dir, 'output')).strip('\n')
+        out_file_name = os.path.join(test_dir, 'output')
+        expected = read_to_string(out_file_name)
 
         failure_expected = self.test_env.get('failure', False)
 
@@ -66,7 +67,7 @@ class InterpreterDriver(BasicTestDriver):
 
         # Run the interpreter
         process = Run(args)
-        process_output = remove_whitespace(process.out)
+        process_output = process.out
         process_failure = process.status != 0
 
         # If there is a difference between the process's output and the
@@ -75,6 +76,13 @@ class InterpreterDriver(BasicTestDriver):
         if process_output != expected or process_failure != failure_expected:
             status = TestStatus.FAIL
             self.result.env["reason"] = "invalid output"
+            print_diff(expected, process_output)
+
+            if self.env.rewrite:
+                print "rewriting test ..."
+                with open(out_file_name, "w") as out_file:
+                    out_file.write(process_output)
+
         elif process_failure != failure_expected:
             status = TestStatus.FAIL
             self.result.env["reason"] = \
@@ -87,11 +95,3 @@ class InterpreterDriver(BasicTestDriver):
 
     def analyze(self, prev):
         pass
-
-
-def remove_whitespace(text):
-    """
-    Removes the file names and the empty lines from the given text.
-    """
-    filtered_lines = [line for line in text.splitlines() if line != ""]
-    return '\n'.join(filtered_lines).strip()

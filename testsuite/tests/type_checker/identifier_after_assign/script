@@ -1,4 +1,0 @@
-let a: bool = true
-let b: int  = 42
-a
-b

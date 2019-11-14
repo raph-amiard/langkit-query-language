@@ -1,6 +1,0 @@
-42 < 41
-"Hello" < "Allo"
-42 < "World"
-"Hello" < 42
-() < ()
-true < false

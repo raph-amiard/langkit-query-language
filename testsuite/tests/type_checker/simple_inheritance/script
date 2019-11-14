@@ -1,8 +1,0 @@
-astnode SuperNode { }
-
-astnode Node: SuperNode {
-    fun foo(n: SuperNode) -> unit
-}
-
-let result: List<Node> = query Node
-result.at(0).foo(result.at(0))

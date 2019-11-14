@@ -1,7 +1,7 @@
 from e3.testsuite import Testsuite
 from e3.os.process import Run
-from drivers import (ParserDriver, InterpreterDriver, make_interpreter,
-    TypeCheckDriver
+from drivers import (
+    ParserDriver, InterpreterDriver, make_interpreter, TypeCheckDriver
 )
 import os
 import glob
@@ -34,9 +34,19 @@ class LKQLTestsuite(Testsuite):
                'interpreter': InterpreterDriver,
                'type_checker': TypeCheckDriver}
 
+    def add_options(self):
+        self.main.argument_parser.add_argument(
+            '--rewrite', '-r', action='store_true',
+            help='Rewrite test baselines according to current output.'
+        )
+
+
+    def tear_up(self):
+        self.env.rewrite = self.main.args.rewrite
+
 
 if __name__ == "__main__":
-    make_interpreter(True)
+    make_interpreter()
     suite = LKQLTestsuite(os.path.dirname(__file__))
     suite.testsuite_main()
     for k, v in suite.test_status_counters.iteritems():

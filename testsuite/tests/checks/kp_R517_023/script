@@ -1,8 +1,7 @@
 let result: List =
-    query CallExpr(
-        is_call(): true,
-        any children(depth=2): p@ParamAssoc when isFlagArg(p)
-    )
+    query CallExpr(is_call(): true,
+                   any children(depth=2): p@ParamAssoc when isFlagArg(p))
+
 print(result)
 
 // Return whether the given 'ParamAssoc' represents an arg that must be flagged by
@@ -10,10 +9,10 @@ print(result)
 fun isFlagArg(actual: Node) -> bool =
     val formal = getFormal(actual);
     if formal == null
-    then false
-    else isInOutOrOut(formal) &&
-         isUnConstrainedArrayWithPacked(typeOfParamSpec(formal)) &&
-         isReprRecordComponent(argumentDecl(actual.r_expr))
+    then true
+    else isInOutOrOut(formal)
+         && isUnConstrainedArrayWithPacked(typeOfParamSpec(formal))
+         && isReprRecordComponent(argumentDecl(actual.r_expr))
 
 fun getFormal(actual: Node) -> Node =
     val params = actual.get_params();
@@ -21,8 +20,8 @@ fun getFormal(actual: Node) -> Node =
 
 fun isReprRecordComponent(decl: Node) -> bool =
     decl is ComponentDecl(any parent:
-                TypeDecl(get_record_representation_clause(): RecordRepClause)
-            )
+        TypeDecl(get_record_representation_clause(): RecordRepClause)
+    )
 
 fun argumentDecl(argExpr: Node) -> Node =
     match argExpr
@@ -38,5 +37,5 @@ fun isInOutOrOut(spec: Node) -> bool =
 fun isUnConstrainedArrayWithPacked(decl: Node) -> bool =
     decl is TypeDecl(
         type_def: ArrayTypeDef(any children: UnconstrainedArrayIndices),
-        get_attribute("Pack"): AdaNode
+        has_aspect("Pack"): true
     )
