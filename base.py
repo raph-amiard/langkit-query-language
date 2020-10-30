@@ -1,10 +1,31 @@
 import liblkqllang
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
-from prompt_toolkit.lexers import Lexer
+from prompt_toolkit.lexers import PygmentsLexer, Lexer
 from prompt_toolkit.styles.named_colors import NAMED_COLORS
 
+from pygments.lexer import RegexLexer
+from pygments.token import *
+
+
 ctx = liblkqllang.AnalysisContext()
+
+
+class LKQLPygmentsLexer(RegexLexer):
+    name = 'LKQL'
+    filenames = ['*.lkql']
+
+    tokens = {
+        'root': [
+            (r' .*\n', Text),
+            (r'\+.*\n', Generic.Inserted),
+            (r'-.*\n', Generic.Deleted),
+            (r'@.*\n', Generic.Subheading),
+            (r'Index.*\n', Generic.Heading),
+            (r'=.*\n', Generic.Heading),
+            (r'.*\n', Text),
+        ]
+    }
 
 class LKQLLexer(Lexer):
     def lex_document(self, document):
