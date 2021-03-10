@@ -13,7 +13,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Welcome to LKQL’s documentation!" href="index.html" />
@@ -73,18 +72,17 @@ relational operators.</p></li>
 <li><p>Nodes: Coming from the queried language (in the common case, Ada), those are
 the only composite data types for the moment. They correspond to the syntax
 nodes of the source files being queried. They can be explored as part of the
-general language subset, through <span class="xref std std-ref">Field access</span>, or via the <span class="xref std std-ref">Tree
-query language subset</span>.</p></li>
+general language subset, through <a class="reference internal" href="#field-access">Field access</a>, or via the <a class="reference internal" href="#tree-query-language-subset">Tree
+query language subset</a>.</p></li>
 </ul>
 </div>
 <div class="section" id="declarations">
 <h3>Declarations<a class="headerlink" href="#declarations" title="Permalink to this headline">¶</a></h3>
 <p>Declarations in LKQL only belong at the top level. There is no support
-currently for nested declarations, except for
-<span class="xref std std-ref">Value declarations</span> in the <span class="xref std std-ref">Block expression</span>.</p>
+currently for nested declarations, except for <a class="reference external" href="Valuedeclaration">Value declarations</a> in the <a class="reference internal" href="#block-expression">Block expression</a>.</p>
 <div class="section" id="function-declaration">
 <h4>Function declaration<a class="headerlink" href="#function-declaration" title="Permalink to this headline">¶</a></h4>
-<svg class="railroad-diagram" height="101" viewBox="0 0 670.5 101" width="670.5" xmlns="http://www.w3.org/2000/svg">
+<svg class="railroad-diagram" height="101" viewBox="0 0 868.0 101" width="868.0" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -119,18 +117,22 @@ currently for nested declarations, except for
 /* ]]> */
 </style><g>
 <path d="M20 30v20m10 -20v20m-10 -10h78.0"></path><text style="text-anchor:start" x="20" y="25">fun&#95;decl</text></g><path d="M98.0 40h10"></path><g>
-<path d="M108.0 40h0.0"></path><path d="M620.5 40h0.0"></path><g class="terminal ">
-<path d="M108.0 40h0.0"></path><path d="M170.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="62.5" x="108.0" y="29"></rect><text x="139.25" y="44">'fun'</text></g><path d="M170.5 40h10"></path><path d="M180.5 40h10"></path><g class="terminal ">
-<path d="M190.5 40h0.0"></path><path d="M227.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="190.5" y="29"></rect><text x="209.0" y="44">id</text></g><path d="M227.5 40h10"></path><path d="M237.5 40h10"></path><g class="terminal ">
-<path d="M247.5 40h0.0"></path><path d="M293.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="247.5" y="29"></rect><text x="270.25" y="44">'('</text></g><path d="M293.0 40h10"></path><g>
-<path d="M303.0 40h0.0"></path><path d="M425.5 40h0.0"></path><path d="M303.0 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
-<path d="M323.0 20h82.5"></path></g><path d="M405.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M303.0 40h20"></path><g>
-<path d="M323.0 40h0.0"></path><path d="M405.5 40h0.0"></path><path d="M323.0 40h10"></path><g class="terminal ">
-<path d="M333.0 40h0.0"></path><path d="M395.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="62.5" x="333.0" y="29"></rect><text x="364.25" y="44">param</text></g><path d="M395.5 40h10"></path><path d="M333.0 40a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
-<path d="M333.0 70h8.5"></path><path d="M387.0 70h8.5"></path><rect height="22" rx="10" ry="10" width="45.5" x="341.5" y="59"></rect><text x="364.25" y="74">','</text></g><path d="M395.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M405.5 40h20"></path></g><path d="M425.5 40h10"></path><g class="terminal ">
-<path d="M435.5 40h0.0"></path><path d="M481.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="435.5" y="29"></rect><text x="458.25" y="44">')'</text></g><path d="M481.0 40h10"></path><path d="M491.0 40h10"></path><g class="terminal ">
-<path d="M501.0 40h0.0"></path><path d="M546.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="501.0" y="29"></rect><text x="523.75" y="44">'='</text></g><path d="M546.5 40h10"></path><path d="M556.5 40h10"></path><g class="terminal ">
-<path d="M566.5 40h0.0"></path><path d="M620.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="566.5" y="29"></rect><text x="593.5" y="44">expr</text></g></g><path d="M620.5 40h10"></path><path d="M 630.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="92" viewBox="0 0 329.0 92" width="329.0" xmlns="http://www.w3.org/2000/svg">
+<path d="M108.0 40h0.0"></path><path d="M818.0 40h0.0"></path><g>
+<path d="M108.0 40h0.0"></path><path d="M295.5 40h0.0"></path><path d="M108.0 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
+<path d="M128.0 20h147.5"></path></g><path d="M275.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M108.0 40h20"></path><g class="terminal ">
+<path d="M128.0 40h0.0"></path><path d="M275.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="128.0" y="29"></rect><text x="201.75" y="44">decl&#95;annotation</text></g><path d="M275.5 40h20"></path></g><path d="M295.5 40h10"></path><g class="terminal ">
+<path d="M305.5 40h0.0"></path><path d="M368.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="62.5" x="305.5" y="29"></rect><text x="336.75" y="44">'fun'</text></g><path d="M368.0 40h10"></path><path d="M378.0 40h10"></path><g class="terminal ">
+<path d="M388.0 40h0.0"></path><path d="M425.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="388.0" y="29"></rect><text x="406.5" y="44">id</text></g><path d="M425.0 40h10"></path><path d="M435.0 40h10"></path><g>
+<path d="M445.0 40h0.0"></path><path d="M818.0 40h0.0"></path><g class="terminal ">
+<path d="M445.0 40h0.0"></path><path d="M490.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="445.0" y="29"></rect><text x="467.75" y="44">'('</text></g><path d="M490.5 40h10"></path><g>
+<path d="M500.5 40h0.0"></path><path d="M623.0 40h0.0"></path><path d="M500.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
+<path d="M520.5 20h82.5"></path></g><path d="M603.0 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M500.5 40h20"></path><g>
+<path d="M520.5 40h0.0"></path><path d="M603.0 40h0.0"></path><path d="M520.5 40h10"></path><g class="terminal ">
+<path d="M530.5 40h0.0"></path><path d="M593.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="62.5" x="530.5" y="29"></rect><text x="561.75" y="44">param</text></g><path d="M593.0 40h10"></path><path d="M530.5 40a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
+<path d="M530.5 70h8.5"></path><path d="M584.5 70h8.5"></path><rect height="22" rx="10" ry="10" width="45.5" x="539.0" y="59"></rect><text x="561.75" y="74">','</text></g><path d="M593.0 70a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M603.0 40h20"></path></g><path d="M623.0 40h10"></path><g class="terminal ">
+<path d="M633.0 40h0.0"></path><path d="M678.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="633.0" y="29"></rect><text x="655.75" y="44">')'</text></g><path d="M678.5 40h10"></path><path d="M688.5 40h10"></path><g class="terminal ">
+<path d="M698.5 40h0.0"></path><path d="M744.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="698.5" y="29"></rect><text x="721.25" y="44">'='</text></g><path d="M744.0 40h10"></path><path d="M754.0 40h10"></path><g class="terminal ">
+<path d="M764.0 40h0.0"></path><path d="M818.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="764.0" y="29"></rect><text x="791.0" y="44">expr</text></g></g></g><path d="M818.0 40h10"></path><path d="M 828.0 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="71" viewBox="0 0 481.5 71" width="481.5" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -164,14 +166,19 @@ currently for nested declarations, except for
 
 /* ]]> */
 </style><g>
-<path d="M20 21v20m10 -20v20m-10 -10h52.5"></path><text style="text-anchor:start" x="20" y="16">param</text></g><g>
-<path d="M72.5 31h0.0"></path><path d="M289.0 31h0.0"></path><path d="M72.5 31h20"></path><g>
-<path d="M92.5 31h0.0"></path><path d="M269.0 31h0.0"></path><g class="terminal ">
-<path d="M92.5 31h0.0"></path><path d="M129.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="92.5" y="20"></rect><text x="111.0" y="35">id</text></g><path d="M129.5 31h10"></path><path d="M139.5 31h10"></path><g class="terminal ">
-<path d="M149.5 31h0.0"></path><path d="M195.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="149.5" y="20"></rect><text x="172.25" y="35">'='</text></g><path d="M195.0 31h10"></path><path d="M205.0 31h10"></path><g class="terminal ">
-<path d="M215.0 31h0.0"></path><path d="M269.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="215.0" y="20"></rect><text x="242.0" y="35">expr</text></g></g><path d="M269.0 31h20"></path><path d="M72.5 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g>
-<path d="M92.5 61h69.75"></path><path d="M199.25 61h69.75"></path><g class="terminal ">
-<path d="M162.25 61h0.0"></path><path d="M199.25 61h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="162.25" y="50"></rect><text x="180.75" y="65">id</text></g></g><path d="M269.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 289.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>Allows the user to declare an LKQL function that can be used to factor some
+<path d="M20 30v20m10 -20v20m-10 -10h52.5"></path><text style="text-anchor:start" x="20" y="25">param</text></g><path d="M72.5 40h10"></path><g>
+<path d="M82.5 40h0.0"></path><path d="M431.5 40h0.0"></path><g class="terminal ">
+<path d="M82.5 40h0.0"></path><path d="M119.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="82.5" y="29"></rect><text x="101.0" y="44">id</text></g><path d="M119.5 40h10"></path><g>
+<path d="M129.5 40h0.0"></path><path d="M272.0 40h0.0"></path><path d="M129.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
+<path d="M149.5 20h102.5"></path></g><path d="M252.0 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M129.5 40h20"></path><g>
+<path d="M149.5 40h0.0"></path><path d="M252.0 40h0.0"></path><g class="terminal ">
+<path d="M149.5 40h0.0"></path><path d="M195.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="149.5" y="29"></rect><text x="172.25" y="44">':'</text></g><path d="M195.0 40h10"></path><path d="M205.0 40h10"></path><g class="terminal ">
+<path d="M215.0 40h0.0"></path><path d="M252.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="215.0" y="29"></rect><text x="233.5" y="44">id</text></g></g><path d="M252.0 40h20"></path></g><g>
+<path d="M272.0 40h0.0"></path><path d="M431.5 40h0.0"></path><path d="M272.0 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
+<path d="M292.0 20h119.5"></path></g><path d="M411.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M272.0 40h20"></path><g>
+<path d="M292.0 40h0.0"></path><path d="M411.5 40h0.0"></path><g class="terminal ">
+<path d="M292.0 40h0.0"></path><path d="M337.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="292.0" y="29"></rect><text x="314.75" y="44">'='</text></g><path d="M337.5 40h10"></path><path d="M347.5 40h10"></path><g class="terminal ">
+<path d="M357.5 40h0.0"></path><path d="M411.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="357.5" y="29"></rect><text x="384.5" y="44">expr</text></g></g><path d="M411.5 40h20"></path></g></g><path d="M431.5 40h10"></path><path d="M 441.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>Allows the user to declare an LKQL function that can be used to factor some
 computation.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">fun</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 </pre></div>
@@ -179,12 +186,21 @@ computation.</p>
 <p>The syntax is simple, you only declare argument names and an expression after
 the <code class="docutils literal notranslate"><span class="pre">=</span></code>.</p>
 <p>If you need to declare temporary named values in the body of your function, you
-can use a <span class="xref std std-ref">Block expression</span>.</p>
+can use a <a class="reference internal" href="#block-expression">Block expression</a>.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">fun</span> <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
     <span class="k">val</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
     <span class="n">ret</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Function can have annotations. For the moment, this is used only in
+the context of LKQL checkers, so not documented further:</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="o">@</span><span class="n">checker</span>
+<span class="k">fun</span> <span class="n">check_bla</span><span class="p">()</span> <span class="o">=</span> <span class="k">select</span> <span class="n">Bla</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="value-declaration">
@@ -344,11 +360,14 @@ null if the object is null.</p>
 <p>When you have a nullable object and you want to make it non nullable, you can
 use the unwrap expression. This is useful after a chain of safe accesses/calls,
 for example.</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="n">object_decl</span><span class="err">?</span><span class="p">.</span><span class="n">type_expr</span><span class="err">?</span><span class="p">.</span><span class="n">designated_type_decl</span><span class="err">!!</span>
+</pre></div>
+</div>
 <p>Unwrap will raise an error if the value is null.</p>
 </div>
 <div class="section" id="function-call">
 <h4>Function call<a class="headerlink" href="#function-call" title="Permalink to this headline">¶</a></h4>
-<svg class="railroad-diagram" height="101" viewBox="0 0 431.5 101" width="431.5" xmlns="http://www.w3.org/2000/svg">
+<svg class="railroad-diagram" height="62" viewBox="0 0 434.0 62" width="434.0" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -382,16 +401,12 @@ for example.</p>
 
 /* ]]> */
 </style><g>
-<path d="M20 30v20m10 -20v20m-10 -10h78.0"></path><text style="text-anchor:start" x="20" y="25">fun&#95;call</text></g><path d="M98.0 40h10"></path><g>
-<path d="M108.0 40h0.0"></path><path d="M381.5 40h0.0"></path><g class="terminal ">
-<path d="M108.0 40h0.0"></path><path d="M145.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="108.0" y="29"></rect><text x="126.5" y="44">id</text></g><path d="M145.0 40h10"></path><path d="M155.0 40h10"></path><g class="terminal ">
-<path d="M165.0 40h0.0"></path><path d="M210.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="165.0" y="29"></rect><text x="187.75" y="44">'('</text></g><path d="M210.5 40h10"></path><g>
-<path d="M220.5 40h0.0"></path><path d="M326.0 40h0.0"></path><path d="M220.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
-<path d="M240.5 20h65.5"></path></g><path d="M306.0 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M220.5 40h20"></path><g>
-<path d="M240.5 40h0.0"></path><path d="M306.0 40h0.0"></path><path d="M240.5 40h10"></path><g class="terminal ">
-<path d="M250.5 40h0.0"></path><path d="M296.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="250.5" y="29"></rect><text x="273.25" y="44">arg</text></g><path d="M296.0 40h10"></path><path d="M250.5 40a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
-<path d="M250.5 70h0.0"></path><path d="M296.0 70h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="250.5" y="59"></rect><text x="273.25" y="74">','</text></g><path d="M296.0 70a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M306.0 40h20"></path></g><path d="M326.0 40h10"></path><g class="terminal ">
-<path d="M336.0 40h0.0"></path><path d="M381.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="336.0" y="29"></rect><text x="358.75" y="44">')'</text></g></g><path d="M381.5 40h10"></path><path d="M 391.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p><span class="xref std std-ref">Functions</span> defined in LKQL can be called with the
+<path d="M20 21v20m10 -20v20m-10 -10h78.0"></path><text style="text-anchor:start" x="20" y="16">fun&#95;call</text></g><path d="M98.0 31h10"></path><g>
+<path d="M108.0 31h0.0"></path><path d="M384.0 31h0.0"></path><g class="terminal ">
+<path d="M108.0 31h0.0"></path><path d="M145.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="108.0" y="20"></rect><text x="126.5" y="35">id</text></g><path d="M145.0 31h10"></path><path d="M155.0 31h10"></path><g class="terminal ">
+<path d="M165.0 31h0.0"></path><path d="M210.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="165.0" y="20"></rect><text x="187.75" y="35">'('</text></g><path d="M210.5 31h10"></path><path d="M220.5 31h10"></path><g class="terminal ">
+<path d="M230.5 31h0.0"></path><path d="M318.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="88.0" x="230.5" y="20"></rect><text x="274.5" y="35">arg&#95;list</text></g><path d="M318.5 31h10"></path><path d="M328.5 31h10"></path><g class="terminal ">
+<path d="M338.5 31h0.0"></path><path d="M384.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="338.5" y="20"></rect><text x="361.25" y="35">')'</text></g></g><path d="M384.0 31h10"></path><path d="M 394.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p><a class="reference external" href="Functiondeclaration">Functions</a> defined in LKQL can be called with the
 function call expression.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">fun</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
@@ -403,8 +418,10 @@ function call expression.</p>
 </div>
 <div class="section" id="indexing-expression">
 <h4>Indexing expression<a class="headerlink" href="#indexing-expression" title="Permalink to this headline">¶</a></h4>
-<p>Indexing expressions allow the user to access elements of a list, array, or
-string.</p>
+<p>Indexing expressions allow the user to access elements of a list, array,
+string, or node.</p>
+<p>For list nodes, it will access the different elements of the list. For regular
+nodes, it will access children in lexical order.</p>
 <p>Here are examples of indexing expressions:</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="n">list</span><span class="p">[</span><span class="m">0</span><span class="p">]</span>
 
@@ -494,7 +511,7 @@ contains the given value.</p>
 </div>
 <div class="section" id="is-expression">
 <h5>Is expression<a class="headerlink" href="#is-expression" title="Permalink to this headline">¶</a></h5>
-<p>The “is” expression verifies if a node object matches a <span class="xref std std-ref">Pattern</span>.</p>
+<p>The “is” expression verifies if a node object matches a <a class="reference internal" href="#pattern">Pattern</a>.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="o">=</span> <span class="k">select</span> <span class="n">AdaNode</span>
 <span class="k">val</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="k">is</span> <span class="n">ObjectDecl</span>
 </pre></div>
@@ -510,6 +527,59 @@ contains the given value.</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="list-literals">
+<h4>List literals<a class="headerlink" href="#list-literals" title="Permalink to this headline">¶</a></h4>
+<svg class="railroad-diagram" height="101" viewBox="0 0 374.5 101" width="374.5" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(.5 .5)">
+<style>/* <![CDATA[ */
+	svg.railroad-diagram {
+		background-color:hsl(30,20%,95%);
+	}
+	svg.railroad-diagram path {
+		stroke-width:3;
+		stroke:black;
+		fill:rgba(0,0,0,0);
+	}
+	svg.railroad-diagram text {
+		font:bold 14px monospace;
+		text-anchor:middle;
+	}
+	svg.railroad-diagram text.label{
+		text-anchor:start;
+	}
+	svg.railroad-diagram text.comment{
+		font:italic 12px monospace;
+	}
+	svg.railroad-diagram rect{
+		stroke-width:3;
+		stroke:black;
+		fill:hsl(120,100%,90%);
+	}
+	svg.railroad-diagram rect.group-box {
+		stroke: gray;
+		stroke-dasharray: 10 5;
+		fill: none;
+	}
+
+/* ]]> */
+</style><g>
+<path d="M20 30v20m10 -20v20m-10 -10h69.5"></path><text style="text-anchor:start" x="20" y="25">listlit</text></g><path d="M89.5 40h10"></path><g>
+<path d="M99.5 40h0.0"></path><path d="M324.5 40h0.0"></path><g class="terminal ">
+<path d="M99.5 40h0.0"></path><path d="M145.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="99.5" y="29"></rect><text x="122.25" y="44">'&#91;'</text></g><path d="M145.0 40h10"></path><g>
+<path d="M155.0 40h0.0"></path><path d="M269.0 40h0.0"></path><path d="M155.0 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g>
+<path d="M175.0 20h74.0"></path></g><path d="M249.0 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M155.0 40h20"></path><g>
+<path d="M175.0 40h0.0"></path><path d="M249.0 40h0.0"></path><path d="M175.0 40h10"></path><g class="terminal ">
+<path d="M185.0 40h0.0"></path><path d="M239.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="185.0" y="29"></rect><text x="212.0" y="44">expr</text></g><path d="M239.0 40h10"></path><path d="M185.0 40a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
+<path d="M185.0 70h4.25"></path><path d="M234.75 70h4.25"></path><rect height="22" rx="10" ry="10" width="45.5" x="189.25" y="59"></rect><text x="212.0" y="74">','</text></g><path d="M239.0 70a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M249.0 40h20"></path></g><path d="M269.0 40h10"></path><g class="terminal ">
+<path d="M279.0 40h0.0"></path><path d="M324.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="279.0" y="29"></rect><text x="301.75" y="44">'&#93;'</text></g></g><path d="M324.5 40h10"></path><path d="M 334.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>A list literal is simply a literal representation of a list.</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="c"># Simple list literal</span>
+<span class="p">[</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Lists being immutable, lists literals are the primary way to create new lists
+from nothing, with list comprehensions being the way to create new lists from
+existing lists.</p>
 </div>
 <div class="section" id="list-comprehension">
 <h4>List comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h4>
@@ -680,9 +750,9 @@ when the condition is false.</p>
 match’s target expression. The first matcher to match the object will trigger
 the evaluation of the associated expression in the match arm.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">match</span> <span class="n">nodes</span><span class="p">[</span><span class="m">0</span><span class="p">]</span>
-  <span class="o">|</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span><span class="o">=</span><span class="n">aliased</span> <span class="o">@</span> <span class="n">_</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">aliased</span>
-  <span class="o">|</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="n">has_aliased</span><span class="o">=</span><span class="n">aliased</span> <span class="o">@</span> <span class="n">_</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">aliased</span>
-  <span class="o">|</span> <span class="n">_</span> <span class="o">=&gt;</span> <span class="n">False</span>
+  <span class="o">|</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span> <span class="k">is</span> <span class="n">aliased</span> <span class="o">@</span> <span class="o">*</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">aliased</span>
+  <span class="o">|</span> <span class="n">ParamSpec</span><span class="p">(</span><span class="n">has_aliased</span> <span class="k">is</span> <span class="n">aliased</span> <span class="o">@</span> <span class="o">*</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">aliased</span>
+  <span class="o">|</span> <span class="o">*</span> <span class="o">=&gt;</span> <span class="k">false</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -694,6 +764,71 @@ runtime.</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">todo</p>
 <p>Verify that bindings of names to matched values work correctly</p>
+</div>
+</div>
+<div class="section" id="tuple-expression">
+<h4>Tuple expression<a class="headerlink" href="#tuple-expression" title="Permalink to this headline">¶</a></h4>
+<svg class="railroad-diagram" height="92" viewBox="0 0 380.0 92" width="380.0" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(.5 .5)">
+<style>/* <![CDATA[ */
+	svg.railroad-diagram {
+		background-color:hsl(30,20%,95%);
+	}
+	svg.railroad-diagram path {
+		stroke-width:3;
+		stroke:black;
+		fill:rgba(0,0,0,0);
+	}
+	svg.railroad-diagram text {
+		font:bold 14px monospace;
+		text-anchor:middle;
+	}
+	svg.railroad-diagram text.label{
+		text-anchor:start;
+	}
+	svg.railroad-diagram text.comment{
+		font:italic 12px monospace;
+	}
+	svg.railroad-diagram rect{
+		stroke-width:3;
+		stroke:black;
+		fill:hsl(120,100%,90%);
+	}
+	svg.railroad-diagram rect.group-box {
+		stroke: gray;
+		stroke-dasharray: 10 5;
+		fill: none;
+	}
+
+/* ]]> */
+</style><g>
+<path d="M20 21v20m10 -20v20m-10 -10h95.0"></path><text style="text-anchor:start" x="20" y="16">tuple&#95;expr</text></g><path d="M115.0 31h10"></path><g>
+<path d="M125.0 31h0.0"></path><path d="M330.0 31h0.0"></path><g class="terminal ">
+<path d="M125.0 31h0.0"></path><path d="M170.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="125.0" y="20"></rect><text x="147.75" y="35">'('</text></g><path d="M170.5 31h10"></path><path d="M180.5 31h10"></path><g>
+<path d="M190.5 31h0.0"></path><path d="M264.5 31h0.0"></path><path d="M190.5 31h10"></path><g class="terminal ">
+<path d="M200.5 31h0.0"></path><path d="M254.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="200.5" y="20"></rect><text x="227.5" y="35">expr</text></g><path d="M254.5 31h10"></path><path d="M200.5 31a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
+<path d="M200.5 61h4.25"></path><path d="M250.25 61h4.25"></path><rect height="22" rx="10" ry="10" width="45.5" x="204.75" y="50"></rect><text x="227.5" y="65">','</text></g><path d="M254.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M264.5 31h10"></path><path d="M274.5 31h10"></path><g class="terminal ">
+<path d="M284.5 31h0.0"></path><path d="M330.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="284.5" y="20"></rect><text x="307.25" y="35">')'</text></g></g><path d="M330.0 31h10"></path><path d="M 340.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>The tuple expression is used to create a tuple, which is an anonymous immutable
+data structure composed of several elements of distinct types:</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+<span class="k">val</span> <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="n">ttt</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">tt</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
+<span class="n">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="n">ttt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tuples are useful as function return values, or to aggregate data, since LKQL
+doesn’t have structs yet.</p>
+</div>
+<div class="section" id="anonymous-functions">
+<h4>Anonymous functions<a class="headerlink" href="#anonymous-functions" title="Permalink to this headline">¶</a></h4>
+<p>LKQL has first class functions, and anonymous functions expressions (or
+lambdas). Anonymous functions have the following form:</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">fun</span> <span class="n">mul_y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="k">val</span> <span class="n">mul_2</span> <span class="o">=</span> <span class="n">mul_y</span> <span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="k">val</span> <span class="n">four</span> <span class="o">=</span> <span class="n">mul_2</span> <span class="p">(</span><span class="m">2</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="literals-and-operators">
@@ -709,15 +844,15 @@ runtime.</p>
 <ul class="simple">
 <li><p>Basic arithmetic operators on integers</p></li>
 </ul>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">+</span> <span class="m">2</span> <span class="o">*</span> <span class="m">3</span> <span class="o">/</span> <span class="m">4</span> <span class="o">=</span> <span class="n">b</span>
-<span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
-<span class="n">b</span> <span class="o">&gt;=</span> <span class="n">c</span>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">calc</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="m">2</span> <span class="o">*</span> <span class="m">3</span> <span class="o">/</span> <span class="m">4</span> <span class="o">==</span> <span class="n">b</span>
+<span class="k">val</span> <span class="n">smaller_or_eq</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
+<span class="k">val</span> <span class="n">greater_or_eq</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="n">c</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Basic relational operators on booleans</p></li>
 </ul>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">true</span> <span class="o">and</span> <span class="k">false</span> <span class="o">or</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">not</span> <span class="n">c</span><span class="p">)</span>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">true</span> <span class="o">and</span> <span class="k">false</span> <span class="o">or</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="o">and</span> <span class="p">(</span><span class="k">not</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -744,11 +879,8 @@ traversal, even though filtering might contain sub traversals via selectors.</p>
 <p>The query allows to run the pattern on a tree, traversing its children.</p>
 <p>Here is a very simple example of a selector, that will select object
 declarations that have the aliased qualifier.</p>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span><span class="o">=</span><span class="k">true</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>And here is its use in a query:</p>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span><span class="o">=</span><span class="k">true</span><span class="p">)</span>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span> <span class="k">is</span> <span class="k">true</span><span class="p">)</span>
+<span class="c">#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Selector</span>
 </pre></div>
 </div>
 <p>This will query every source file in the LKQL context, and filter according to
@@ -756,7 +888,7 @@ the pattern.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Queries are expressions, so you can write:</p>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="o">=</span> <span class="k">select</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span><span class="o">=</span><span class="k">true</span><span class="p">)</span>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="o">=</span> <span class="k">select</span> <span class="n">ObjectDecl</span><span class="p">(</span><span class="n">has_aliased</span> <span class="k">is</span> <span class="k">true</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -782,7 +914,7 @@ nodes as a result. Here is an example, the selector that will go up the parent
 chain.</p>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">selector</span> <span class="n">parent</span>
    <span class="o">|</span> <span class="n">AdaNode</span> <span class="o">=&gt;</span> <span class="k">rec</span> <span class="o">*</span><span class="n">it</span><span class="p">.</span><span class="n">parent</span>
-   <span class="o">|</span> <span class="n">_</span>       <span class="o">=&gt;</span> <span class="p">()</span>
+   <span class="o">|</span> <span class="o">*</span>       <span class="o">=&gt;</span> <span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="query-expression">
@@ -840,7 +972,7 @@ applying the pattern on every node. It yields all matching nodes.</p>
 </div>
 <div class="section" id="pattern">
 <h3>Pattern<a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h3>
-<svg class="railroad-diagram" height="92" viewBox="0 0 482.0 92" width="482.0" xmlns="http://www.w3.org/2000/svg">
+<svg class="railroad-diagram" height="160" viewBox="0 0 809.0 160" width="809.0" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -875,12 +1007,27 @@ applying the pattern on every node. It yields all matching nodes.</p>
 /* ]]> */
 </style><g>
 <path d="M20 21v20m10 -20v20m-10 -10h69.5"></path><text style="text-anchor:start" x="20" y="16">pattern</text></g><g>
-<path d="M89.5 31h0.0"></path><path d="M442.0 31h0.0"></path><path d="M89.5 31h20"></path><g>
-<path d="M109.5 31h0.0"></path><path d="M422.0 31h0.0"></path><g class="terminal ">
-<path d="M109.5 31h0.0"></path><path d="M257.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="109.5" y="20"></rect><text x="183.25" y="35">chained&#95;pattern</text></g><path d="M257.0 31h10"></path><path d="M267.0 31h10"></path><g class="terminal ">
-<path d="M277.0 31h0.0"></path><path d="M348.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="71.0" x="277.0" y="20"></rect><text x="312.5" y="35">'when'</text></g><path d="M348.0 31h10"></path><path d="M358.0 31h10"></path><g class="terminal ">
-<path d="M368.0 31h0.0"></path><path d="M422.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="368.0" y="20"></rect><text x="395.0" y="35">expr</text></g></g><path d="M422.0 31h20"></path><path d="M89.5 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
-<path d="M109.5 61h82.5"></path><path d="M339.5 61h82.5"></path><rect height="22" rx="10" ry="10" width="147.5" x="192.0" y="50"></rect><text x="265.75" y="65">chained&#95;pattern</text></g><path d="M422.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 442.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="160" viewBox="0 0 860.0 160" width="860.0" xmlns="http://www.w3.org/2000/svg">
+<path d="M89.5 31h0.0"></path><path d="M769.0 31h0.0"></path><path d="M89.5 31h20"></path><g>
+<path d="M109.5 31h0.0"></path><path d="M749.0 31h0.0"></path><g class="terminal ">
+<path d="M109.5 31h0.0"></path><path d="M265.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="156.0" x="109.5" y="20"></rect><text x="187.5" y="35">filtered&#95;pattern</text></g><path d="M265.5 31h10"></path><path d="M275.5 31h10"></path><g>
+<path d="M285.5 31h0.0"></path><path d="M749.0 31h0.0"></path><path d="M285.5 31h10"></path><g>
+<path d="M295.5 31h0.0"></path><path d="M739.0 31h0.0"></path><path d="M295.5 31h20"></path><g>
+<path d="M315.5 31h11.5"></path><path d="M707.5 31h11.5"></path><g class="terminal ">
+<path d="M327.0 31h0.0"></path><path d="M457.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="130.5" x="327.0" y="20"></rect><text x="392.25" y="35">selector&#95;call</text></g><path d="M457.5 31h10"></path><path d="M467.5 31h10"></path><g class="terminal ">
+<path d="M477.5 31h0.0"></path><path d="M531.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="477.5" y="20"></rect><text x="504.5" y="35">'is'</text></g><path d="M531.5 31h10"></path><path d="M541.5 31h10"></path><g class="terminal ">
+<path d="M551.5 31h0.0"></path><path d="M707.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="156.0" x="551.5" y="20"></rect><text x="629.5" y="35">filtered&#95;pattern</text></g></g><path d="M719.0 31h20"></path><path d="M295.5 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g>
+<path d="M315.5 61h25.5"></path><path d="M693.5 61h25.5"></path><g class="terminal ">
+<path d="M341.0 61h0.0"></path><path d="M386.5 61h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="341.0" y="50"></rect><text x="363.75" y="65">'.'</text></g><path d="M386.5 61h10"></path><path d="M396.5 61h10"></path><g class="terminal ">
+<path d="M406.5 61h0.0"></path><path d="M443.5 61h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="406.5" y="50"></rect><text x="425.0" y="65">id</text></g><path d="M443.5 61h10"></path><path d="M453.5 61h10"></path><g class="terminal ">
+<path d="M463.5 61h0.0"></path><path d="M517.5 61h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="463.5" y="50"></rect><text x="490.5" y="65">'is'</text></g><path d="M517.5 61h10"></path><path d="M527.5 61h10"></path><g class="terminal ">
+<path d="M537.5 61h0.0"></path><path d="M693.5 61h0.0"></path><rect height="22" rx="10" ry="10" width="156.0" x="537.5" y="50"></rect><text x="615.5" y="65">filtered&#95;pattern</text></g></g><path d="M719.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M295.5 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g>
+<path d="M315.5 91h0.0"></path><path d="M719.0 91h0.0"></path><g class="terminal ">
+<path d="M315.5 91h0.0"></path><path d="M361.0 91h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="315.5" y="80"></rect><text x="338.25" y="95">'.'</text></g><path d="M361.0 91h10"></path><path d="M371.0 91h10"></path><g class="terminal ">
+<path d="M381.0 91h0.0"></path><path d="M469.0 91h0.0"></path><rect height="22" rx="10" ry="10" width="88.0" x="381.0" y="80"></rect><text x="425.0" y="95">fun&#95;call</text></g><path d="M469.0 91h10"></path><path d="M479.0 91h10"></path><g class="terminal ">
+<path d="M489.0 91h0.0"></path><path d="M543.0 91h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="489.0" y="80"></rect><text x="516.0" y="95">'is'</text></g><path d="M543.0 91h10"></path><path d="M553.0 91h10"></path><g class="terminal ">
+<path d="M563.0 91h0.0"></path><path d="M719.0 91h0.0"></path><rect height="22" rx="10" ry="10" width="156.0" x="563.0" y="80"></rect><text x="641.0" y="95">filtered&#95;pattern</text></g></g><path d="M719.0 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M739.0 31h10"></path><path d="M295.5 31a10 10 0 0 0 -10 10v59a10 10 0 0 0 10 10"></path><g>
+<path d="M295.5 110h443.5"></path></g><path d="M739.0 110a10 10 0 0 0 10 -10v-59a10 10 0 0 0 -10 -10"></path></g></g><path d="M749.0 31h20"></path><path d="M89.5 31a10 10 0 0 1 10 10v78a10 10 0 0 0 10 10"></path><g class="terminal ">
+<path d="M109.5 129h241.75"></path><path d="M507.25 129h241.75"></path><rect height="22" rx="10" ry="10" width="156.0" x="351.25" y="118"></rect><text x="429.25" y="133">filtered&#95;pattern</text></g><path d="M749.0 129a10 10 0 0 0 10 -10v-78a10 10 0 0 1 10 -10"></path></g><path d="M 769.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="92" viewBox="0 0 558.5 92" width="558.5" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -914,28 +1061,13 @@ applying the pattern on every node. It yields all matching nodes.</p>
 
 /* ]]> */
 </style><g>
-<path d="M20 21v20m10 -20v20m-10 -10h137.5"></path><text style="text-anchor:start" x="20" y="16">chained&#95;pattern</text></g><g>
-<path d="M157.5 31h0.0"></path><path d="M820.0 31h0.0"></path><path d="M157.5 31h20"></path><g>
-<path d="M177.5 31h0.0"></path><path d="M800.0 31h0.0"></path><g class="terminal ">
-<path d="M177.5 31h0.0"></path><path d="M325.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="177.5" y="20"></rect><text x="251.25" y="35">binding&#95;pattern</text></g><path d="M325.0 31h10"></path><path d="M335.0 31h10"></path><g>
-<path d="M345.0 31h0.0"></path><path d="M800.0 31h0.0"></path><path d="M345.0 31h10"></path><g>
-<path d="M355.0 31h0.0"></path><path d="M790.0 31h0.0"></path><path d="M355.0 31h20"></path><g>
-<path d="M375.0 31h11.5"></path><path d="M758.5 31h11.5"></path><g class="terminal ">
-<path d="M386.5 31h0.0"></path><path d="M517.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="130.5" x="386.5" y="20"></rect><text x="451.75" y="35">selector&#95;call</text></g><path d="M517.0 31h10"></path><path d="M527.0 31h10"></path><g class="terminal ">
-<path d="M537.0 31h0.0"></path><path d="M591.0 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="537.0" y="20"></rect><text x="564.0" y="35">'is'</text></g><path d="M591.0 31h10"></path><path d="M601.0 31h10"></path><g class="terminal ">
-<path d="M611.0 31h0.0"></path><path d="M758.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="611.0" y="20"></rect><text x="684.75" y="35">binding&#95;pattern</text></g></g><path d="M770.0 31h20"></path><path d="M355.0 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g>
-<path d="M375.0 61h29.75"></path><path d="M740.25 61h29.75"></path><g class="terminal ">
-<path d="M404.75 61h0.0"></path><path d="M450.25 61h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="404.75" y="50"></rect><text x="427.5" y="65">'.'</text></g><path d="M450.25 61h10"></path><path d="M460.25 61h10"></path><g class="terminal ">
-<path d="M470.25 61h0.0"></path><path d="M507.25 61h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="470.25" y="50"></rect><text x="488.75" y="65">id</text></g><path d="M507.25 61h10"></path><path d="M517.25 61h10"></path><g class="terminal ">
-<path d="M527.25 61h0.0"></path><path d="M572.75 61h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="527.25" y="50"></rect><text x="550.0" y="65">'='</text></g><path d="M572.75 61h10"></path><path d="M582.75 61h10"></path><g class="terminal ">
-<path d="M592.75 61h0.0"></path><path d="M740.25 61h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="592.75" y="50"></rect><text x="666.5" y="65">binding&#95;pattern</text></g></g><path d="M770.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M355.0 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g>
-<path d="M375.0 91h0.0"></path><path d="M770.0 91h0.0"></path><g class="terminal ">
-<path d="M375.0 91h0.0"></path><path d="M420.5 91h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="375.0" y="80"></rect><text x="397.75" y="95">'.'</text></g><path d="M420.5 91h10"></path><path d="M430.5 91h10"></path><g class="terminal ">
-<path d="M440.5 91h0.0"></path><path d="M528.5 91h0.0"></path><rect height="22" rx="10" ry="10" width="88.0" x="440.5" y="80"></rect><text x="484.5" y="95">fun&#95;call</text></g><path d="M528.5 91h10"></path><path d="M538.5 91h10"></path><g class="terminal ">
-<path d="M548.5 91h0.0"></path><path d="M602.5 91h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="548.5" y="80"></rect><text x="575.5" y="95">'is'</text></g><path d="M602.5 91h10"></path><path d="M612.5 91h10"></path><g class="terminal ">
-<path d="M622.5 91h0.0"></path><path d="M770.0 91h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="622.5" y="80"></rect><text x="696.25" y="95">binding&#95;pattern</text></g></g><path d="M770.0 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M790.0 31h10"></path><path d="M355.0 31a10 10 0 0 0 -10 10v59a10 10 0 0 0 10 10"></path><g>
-<path d="M355.0 110h435.0"></path></g><path d="M790.0 110a10 10 0 0 0 10 -10v-59a10 10 0 0 0 -10 -10"></path></g></g><path d="M800.0 31h20"></path><path d="M157.5 31a10 10 0 0 1 10 10v78a10 10 0 0 0 10 10"></path><g class="terminal ">
-<path d="M177.5 129h237.5"></path><path d="M562.5 129h237.5"></path><rect height="22" rx="10" ry="10" width="147.5" x="415.0" y="118"></rect><text x="488.75" y="133">binding&#95;pattern</text></g><path d="M800.0 129a10 10 0 0 0 10 -10v-78a10 10 0 0 1 10 -10"></path></g><path d="M 820.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="92" viewBox="0 0 490.5 92" width="490.5" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 21v20m10 -20v20m-10 -10h146.0"></path><text style="text-anchor:start" x="20" y="16">filtered&#95;pattern</text></g><g>
+<path d="M166.0 31h0.0"></path><path d="M518.5 31h0.0"></path><path d="M166.0 31h20"></path><g>
+<path d="M186.0 31h0.0"></path><path d="M498.5 31h0.0"></path><g class="terminal ">
+<path d="M186.0 31h0.0"></path><path d="M333.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="147.5" x="186.0" y="20"></rect><text x="259.75" y="35">binding&#95;pattern</text></g><path d="M333.5 31h10"></path><path d="M343.5 31h10"></path><g class="terminal ">
+<path d="M353.5 31h0.0"></path><path d="M424.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="71.0" x="353.5" y="20"></rect><text x="389.0" y="35">'when'</text></g><path d="M424.5 31h10"></path><path d="M434.5 31h10"></path><g class="terminal ">
+<path d="M444.5 31h0.0"></path><path d="M498.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="444.5" y="20"></rect><text x="471.5" y="35">expr</text></g></g><path d="M498.5 31h20"></path><path d="M166.0 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal ">
+<path d="M186.0 61h82.5"></path><path d="M416.0 61h82.5"></path><rect height="22" rx="10" ry="10" width="147.5" x="268.5" y="50"></rect><text x="342.25" y="65">binding&#95;pattern</text></g><path d="M498.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 518.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><svg class="railroad-diagram" height="92" viewBox="0 0 490.5 92" width="490.5" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(.5 .5)">
 <style>/* <![CDATA[ */
 	svg.railroad-diagram {
@@ -1045,7 +1177,7 @@ return a sub object.</p>
 <path d="M160.5 31h0.0"></path><path d="M571.5 31h0.0"></path><g>
 <path d="M160.5 31h0.0"></path><path d="M297.0 31h0.0"></path><path d="M160.5 31h20"></path><g>
 <path d="M180.5 31h25.5"></path><path d="M251.5 31h25.5"></path><g class="terminal ">
-<path d="M206.0 31h0.0"></path><path d="M251.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="206.0" y="20"></rect><text x="228.75" y="35">'&#95;'</text></g></g><path d="M277.0 31h20"></path><path d="M160.5 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g>
+<path d="M206.0 31h0.0"></path><path d="M251.5 31h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="206.0" y="20"></rect><text x="228.75" y="35">'&#42;'</text></g></g><path d="M277.0 31h20"></path><path d="M160.5 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g>
 <path d="M180.5 61h0.0"></path><path d="M277.0 61h0.0"></path><g class="terminal ">
 <path d="M180.5 61h0.0"></path><path d="M277.0 61h0.0"></path><rect height="22" rx="10" ry="10" width="96.5" x="180.5" y="50"></rect><text x="228.75" y="65">kind&#95;name</text></g></g><path d="M277.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M297.0 31h10"></path><g>
 <path d="M307.0 31h0.0"></path><path d="M571.5 31h0.0"></path><g class="terminal ">
@@ -1057,18 +1189,15 @@ return a sub object.</p>
 <path d="M160.5 91h157.25"></path><path d="M414.25 91h157.25"></path><g class="terminal ">
 <path d="M317.75 91h0.0"></path><path d="M414.25 91h0.0"></path><rect height="22" rx="10" ry="10" width="96.5" x="317.75" y="80"></rect><text x="366.0" y="95">kind&#95;name</text></g></g><path d="M571.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M140.5 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g>
 <path d="M160.5 121h182.75"></path><path d="M388.75 121h182.75"></path><g class="terminal ">
-<path d="M343.25 121h0.0"></path><path d="M388.75 121h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="343.25" y="110"></rect><text x="366.0" y="125">'&#95;'</text></g></g><path d="M571.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 591.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>A value pattern is the simplest atom for node patterns.</p>
+<path d="M343.25 121h0.0"></path><path d="M388.75 121h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="343.25" y="110"></rect><text x="366.0" y="125">'&#42;'</text></g></g><path d="M571.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 591.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>A value pattern is the simplest atom for node patterns.</p>
 <p>In its simple form, it can be either <code class="docutils literal notranslate"><span class="pre">_</span></code>, which is the wildcard pattern, and
 will match everything, or a node name:</p>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">_</span> <span class="c"># Will select every node</span>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> <span class="c"># Will select every node</span>
 <span class="k">select</span> <span class="n">BasicDecl</span> <span class="c"># Will select every basic declaration</span>
 </pre></div>
 </div>
 <p>In its more complex form, it can have sub-patterns in an optional part between
-parentheses:</p>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">BasicDecl</span><span class="p">(...)</span>
-</pre></div>
-</div>
+parentheses, which brings us to the next section.</p>
 </div>
 <div class="section" id="nested-sub-patterns">
 <h4>Nested sub patterns<a class="headerlink" href="#nested-sub-patterns" title="Permalink to this headline">¶</a></h4>
@@ -1127,10 +1256,10 @@ parentheses:</p>
 <path d="M612.0 40h0.0"></path><path d="M657.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="612.0" y="29"></rect><text x="634.75" y="44">')'</text></g></g><path d="M657.5 40h20"></path></g></g><path d="M677.5 40h10"></path><path d="M687.5 40h10"></path><g class="terminal ">
 <path d="M697.5 40h0.0"></path><path d="M751.5 40h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="697.5" y="29"></rect><text x="724.5" y="44">'is'</text></g><path d="M751.5 40h10"></path><path d="M761.5 40h10"></path><g class="terminal ">
 <path d="M771.5 40h0.0"></path><path d="M851.0 40h0.0"></path><rect height="22" rx="10" ry="10" width="79.5" x="771.5" y="29"></rect><text x="811.25" y="44">pattern</text></g></g><path d="M851.0 40h20"></path><path d="M123.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g>
-<path d="M143.5 100h231.5"></path><path d="M619.5 100h231.5"></path><g class="terminal ">
-<path d="M375.0 100h0.0"></path><path d="M412.0 100h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="375.0" y="89"></rect><text x="393.5" y="104">id</text></g><path d="M412.0 100h10"></path><path d="M422.0 100h10"></path><g class="terminal ">
-<path d="M432.0 100h0.0"></path><path d="M477.5 100h0.0"></path><rect height="22" rx="10" ry="10" width="45.5" x="432.0" y="89"></rect><text x="454.75" y="104">'='</text></g><path d="M477.5 100h10"></path><path d="M487.5 100h10"></path><g class="terminal ">
-<path d="M497.5 100h0.0"></path><path d="M619.5 100h0.0"></path><rect height="22" rx="10" ry="10" width="122.0" x="497.5" y="89"></rect><text x="558.5" y="104">detail&#95;value</text></g></g><path d="M851.0 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M123.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g>
+<path d="M143.5 100h227.25"></path><path d="M623.75 100h227.25"></path><g class="terminal ">
+<path d="M370.75 100h0.0"></path><path d="M407.75 100h0.0"></path><rect height="22" rx="10" ry="10" width="37.0" x="370.75" y="89"></rect><text x="389.25" y="104">id</text></g><path d="M407.75 100h10"></path><path d="M417.75 100h10"></path><g class="terminal ">
+<path d="M427.75 100h0.0"></path><path d="M481.75 100h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="427.75" y="89"></rect><text x="454.75" y="104">'is'</text></g><path d="M481.75 100h10"></path><path d="M491.75 100h10"></path><g class="terminal ">
+<path d="M501.75 100h0.0"></path><path d="M623.75 100h0.0"></path><rect height="22" rx="10" ry="10" width="122.0" x="501.75" y="89"></rect><text x="562.75" y="104">detail&#95;value</text></g></g><path d="M851.0 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M123.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g>
 <path d="M143.5 130h201.75"></path><path d="M649.25 130h201.75"></path><g class="terminal ">
 <path d="M345.25 130h0.0"></path><path d="M433.25 130h0.0"></path><rect height="22" rx="10" ry="10" width="88.0" x="345.25" y="119"></rect><text x="389.25" y="134">fun&#95;call</text></g><path d="M433.25 130h10"></path><path d="M443.25 130h10"></path><g class="terminal ">
 <path d="M453.25 130h0.0"></path><path d="M507.25 130h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="453.25" y="119"></rect><text x="480.25" y="134">'is'</text></g><path d="M507.25 130h10"></path><path d="M517.25 130h10"></path><g class="terminal ">
@@ -1150,7 +1279,7 @@ alter how the sub-pattern matches:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">all</span></code> will match only if all nodes returned by the selector match the condition</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">any</span></code> will match as soon as at least one child matches the condition.</p></li>
 </ul>
-<p>Any of the <span class="xref std std-ref">Built-in selectors</span> can be used, or even custom selectors.</p>
+<p>Any of the <a class="reference internal" href="#built-in-selectors">Built-in selectors</a> can be used, or even custom selectors.</p>
 </div>
 <div class="section" id="field-predicate">
 <h5>Field predicate<a class="headerlink" href="#field-predicate" title="Permalink to this headline">¶</a></h5>
@@ -1224,7 +1353,7 @@ This is done via binding patterns:</p>
 </pre></div>
 </div>
 <div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">a</span> <span class="o">=</span> <span class="k">select</span> <span class="n">BasicDecl</span>
-<span class="k">select</span> <span class="n">b</span> <span class="o">@</span> <span class="n">BaseId</span> <span class="k">when</span> <span class="n">b</span><span class="p">.</span><span class="n">referenced_decl</span><span class="p">()</span> <span class="o">=</span> <span class="n">a</span>
+<span class="k">select</span> <span class="n">b</span> <span class="o">@</span> <span class="n">BaseId</span> <span class="k">when</span> <span class="n">b</span><span class="p">.</span><span class="n">referenced_decl</span><span class="p">()</span> <span class="o">==</span> <span class="n">a</span>
 </pre></div>
 </div>
 </div>
@@ -1361,7 +1490,7 @@ This is done via binding patterns:</p>
 <path d="M347.0 61h0.0"></path><path d="M401.0 61h0.0"></path><rect height="22" rx="10" ry="10" width="54.0" x="347.0" y="50"></rect><text x="374.0" y="65">expr</text></g></g><path d="M401.0 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g></g><path d="M421.0 31h10"></path><path d="M 431.0 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg><p>Selectors are a special form of functions that return a lazy stream of node
 values. They’re at the basis of the query DSL of LKQL, allowing the easy
 expression of traversal blueprints.</p>
-<p>For example, by default, the <span class="xref std std-ref">Query expression</span> explores the tree via the
+<p>For example, by default, the <a class="reference internal" href="#query-expression">Query expression</a> explores the tree via the
 default <code class="docutils literal notranslate"><span class="pre">children</span></code> selector.</p>
 <p>You’ve already seen selectors used in previous sections, and, most of the time,
 you might not need to define your own, but in case you need to, here is how
@@ -1369,8 +1498,8 @@ they work.</p>
 <div class="section" id="defining-a-selector">
 <h4>Defining a selector<a class="headerlink" href="#defining-a-selector" title="Permalink to this headline">¶</a></h4>
 <p>A selector is a recursive function. It has a single implicit <cite>it</cite> argument that
-represents the current node. A selector has an implicit top level <span class="xref std std-ref">Match
-expression</span> matching on <cite>it</cite>.</p>
+represents the current node. A selector has an implicit top level <a class="reference internal" href="#match-expression">Match
+expression</a> matching on <cite>it</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The principle of selectors is more general than nodes, but is for the
@@ -1387,7 +1516,12 @@ the same effect as <code class="docutils literal notranslate"><span class="pre">
 <li><p>You can <strong>return but not recurse</strong>: This is the default action (requires no
 keyword), and will yield the node(s), but not recurse on them.</p></li>
 </ul>
-<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">selector</span>
+<p>In <code class="docutils literal notranslate"><span class="pre">rec</span></code> or in the regular return branch, you can use the unpack operator, or
+<code class="docutils literal notranslate"><span class="pre">*expr</span></code> to “unpack” an expression, eg. return each of its values. Here is for
+example how the <code class="docutils literal notranslate"><span class="pre">super_types</span></code> selector is expressed:</p>
+<div class="highlight-lkql notranslate"><div class="highlight"><pre><span></span><span class="k">selector</span> <span class="n">super_types</span>
+    <span class="o">|</span> <span class="n">BaseTypeDecl</span>      <span class="o">=&gt;</span> <span class="k">rec</span> <span class="o">*</span><span class="n">it</span><span class="p">.</span><span class="n">base_types</span><span class="p">()</span>
+    <span class="o">|</span> <span class="o">*</span>                 <span class="o">=&gt;</span> <span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1397,9 +1531,9 @@ keyword), and will yield the node(s), but not recurse on them.</p></li>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: parent nodes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">children</span></code>: child nodes.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">prevSiblings</span></code>: sibling nodes that are before the current node.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nextSiblings</span></code>: sibling nodes that are after the current node.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">superTypes</span></code>: if the current node is a type, then all its supertypes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prev_siblings</span></code>: sibling nodes that are before the current node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next_siblings</span></code>: sibling nodes that are after the current node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">super_types</span></code>: if the current node is a type, then all its parent types.</p></li>
 </ul>
 </div>
 </div>
@@ -1463,10 +1597,10 @@ keyword), and will yield the node(s), but not recurse on them.</p></li>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2020, Raphael Amiard.
+      &copy;2020, AdaCore.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
