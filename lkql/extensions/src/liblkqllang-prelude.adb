@@ -24,22 +24,32 @@
 package body Liblkqllang.Prelude is
 
    Prelude_Content : constant String :=
+        "|"" Yields the siblings following the given node in the tree"
+        & ASCII.LF &
         "selector next_siblings" & ASCII.LF &
         "   | AdaNode => rec this.next_sibling" & ASCII.LF &
         "   | *       => ()" & ASCII.LF &
         ""                   & ASCII.LF &
+        "|"" Yields the siblings preceding the given node in the tree"
+        & ASCII.LF &
         "selector prev_siblings" & ASCII.LF &
         "   | AdaNode => rec this.previous_sibling" & ASCII.LF &
         "   | *       => ()" & ASCII.LF &
         ""                   & ASCII.LF &
+        "|"" Yields the parents (ancestors) of the given node in the tree"
+        & ASCII.LF &
         "selector parent" & ASCII.LF &
         "   | AdaNode => rec *this.parent" & ASCII.LF &
         "   | *       => ()" & ASCII.LF &
         ""                   & ASCII.LF &
+        "|"" Yields all the descendants of the given node in the tree"
+        & ASCII.LF &
         "selector children" & ASCII.LF &
         "   | AdaNode => rec *this.children" & ASCII.LF &
         "   | *       => ()" & ASCII.LF &
         ""                   & ASCII.LF &
+        "|"" Given a TypeDecl node, yields all the super types of the type"
+        & ASCII.LF &
         "selector super_types" & ASCII.LF &
         "    | BaseTypeDecl      => rec *this.p_base_types()" & ASCII.LF &
         "    | *                 => ()" & ASCII.LF;

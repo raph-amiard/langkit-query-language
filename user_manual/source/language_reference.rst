@@ -87,6 +87,7 @@ can use a `Block expression`_.
 
 .. code-block:: lkql
 
+    ## Add two integers
     fun add(x, y) = {
         val ret = x + y;
         ret
@@ -132,6 +133,32 @@ The value is immutable.
 .. code-block:: lkql
 
     val a = 12 + 15
+
+Docstrings
+^^^^^^^^^^
+
+Declarations can have assorted docstrings.
+
+They're part of the AST and are directly attached to the declaration.
+
+.. code-block:: lkql
+
+    # Doc comments
+
+    ## Make a function that will capture ``closure_var`` and return the sum of
+    ## it plus its first argument
+    fun make_closure(closure_var) = {
+        fun use_closure(x) = closure_var + x;
+        use_closure
+    }
+
+    ## Function that will add 12 to its first argument
+    val adder = make_closure(12)
+
+    print(make_closure(12))
+
+.. note:: This part is incomplete, needs to be completed when we have a way to
+   retrieve the documentation programmatically.
 
 Expressions
 -----------
@@ -477,7 +504,7 @@ Literals and Operators
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. lkql_doc_class:: Literal
-
+.. lkql_doc_class:: SubBlockLiteral
 .. lkql_doc_class:: ArithBinOp
 .. lkql_doc_class:: NotNode
 
@@ -489,6 +516,15 @@ LKQL has literals for booleans, integers, strings, and null values:
     val b = true
     val c = "hello"
     val d = null
+
+LKQL has multi-line string literals, but they're a bit different than in Python
+or other languages:
+
+.. code-block:: lkql
+
+   val a = |" Hello
+           |" This is a multi line string
+           |" Bue
 
 LKQL has a few built-in operators available:
 

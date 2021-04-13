@@ -1,4 +1,4 @@
-# Return true if the string s is the name of an assert pragma
+|" Return true if the string s is the name of an assert pragma
 fun is_assert_pragma(s) =
     s == "assert" or
     s == "assert_and_cut" or
@@ -13,7 +13,7 @@ fun is_assert_pragma(s) =
     s == "predicate" or
     s == "refined_post"
 
-# Return true if the string s is the name of an assert aspect
+|" Return true if the string s is the name of an assert aspect
 fun is_assert_aspect(s) =
     s == "static_predicate" or
     s == "dynamic_predicate" or
@@ -27,7 +27,8 @@ fun is_assert_aspect(s) =
     s == "default_initial_condition" or
     s == "predicate_failure"
 
-# Return the ultimately designated ObjectDecl, going through renamings
+|" Return the ultimately designated ObjectDecl, going through renamings
+|" This will not go through generic instantiations
 fun ultimate_alias(name) =
     if name is (BaseId or DottedName) then {
         val decl = name?.p_referenced_decl();
@@ -40,7 +41,7 @@ fun ultimate_alias(name) =
         else ultimate_alias(ren?.f_renamed_object)
     } else name
 
-# Return true if e represents a local scope or a generic formal
+|" Return true if e represents a local scope or a generic formal
 fun local_scope(e) =
     e is
        SubpBody
@@ -50,17 +51,17 @@ fun local_scope(e) =
     or ProtectedBody
     or GenericFormalObjDecl
 
-# Return true if n is enclosed in a local scope
+|" Return true if n is enclosed in a local scope
 fun has_local_scope(n) =
     [p for p in n?.parents() if local_scope(p)].length > 0
 
-# Return true if o represents a local ObjectDecl or ParamSpec
+|"# Return true if o represents a local ObjectDecl or ParamSpec
 fun is_local_object(o) =
     o is
        ParamSpec
     or (ObjectDecl when has_local_scope(o))
 
-# Return the position of node n in its current list of siblings
+|"# Return the position of node n in its current list of siblings
 fun param_pos(n, pos: int = 0) =
     if n == null then pos else param_pos(n?.previous_sibling, pos+1)
 

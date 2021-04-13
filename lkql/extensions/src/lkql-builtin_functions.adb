@@ -22,18 +22,21 @@
 ------------------------------------------------------------------------------
 
 with Ada.Strings.Wide_Wide_Unbounded;
+with Ada.Wide_Wide_Text_IO; use Ada.Wide_Wide_Text_IO;
 
 with Langkit_Support.Text; use Langkit_Support.Text;
 
 with LKQL.AST_Nodes;
 
 with Ada_AST_Nodes; use Ada_AST_Nodes;
+with LKQL.Evaluation; use LKQL.Evaluation;
 
 package body LKQL.Builtin_Functions is
    function Create
      (Name      : Text_Type;
       Params    : Builtin_Function_Profile;
-      Fn_Access : Native_Function_Access) return Builtin_Function;
+      Fn_Access : Native_Function_Access;
+      Doc       : Text_Type) return Builtin_Function;
    --  Create a builtin function given a name, a description of its
    --  parameters and an access to the native code that implements it.
 
@@ -61,14 +64,16 @@ package body LKQL.Builtin_Functions is
    function Create
      (Name      : Text_Type;
       Params    : Builtin_Function_Profile;
-      Fn_Access : Native_Function_Access) return Builtin_Function
+      Fn_Access : Native_Function_Access;
+      Doc       : Text_Type) return Builtin_Function
    is
    begin
       return new Builtin_Function_Description'
         (N         => Params'Length,
          Name      => To_Unbounded_Text (Name),
          Params    => Params,
-         Fn_Access => Fn_Access);
+         Fn_Access => Fn_Access,
+         Doc       => To_Unbounded_Text (Doc));
    end Create;
 
    -----------
@@ -224,34 +229,89 @@ package body LKQL.Builtin_Functions is
             (Str, Str_Len - Suffix_Len + 1, Str_Len) = Suffix);
    end Eval_Ends_With;
 
+   --------------
+   -- Eval_Doc --
+   --------------
+
+   function Eval_Doc
+     (Ctx : Eval_Context; Args : Primitive_Array) return Primitive
+   is
+      Obj : constant Primitive := Args (1);
+   begin
+      Put_Line
+        (case Kind (Obj) is
+         when Kind_Builtin_Function =>
+           To_Text (Obj.Unchecked_Get.Builtin_Fn.Doc),
+         when Kind_Function         =>
+           To_Text (Str_Val (Eval (Ctx, Obj.Unchecked_Get.Fun_Node.P_Doc))),
+         when Kind_Selector         =>
+           To_Text (Str_Val (Eval (Ctx, Obj.Unchecked_Get.Sel_Node.F_Doc))),
+         when others                => "");
+      return Make_Unit_Primitive;
+   end Eval_Doc;
+
    -----------------------
    -- Builtin_Functions --
    -----------------------
 
    Builtin_Functions : constant Builtin_Function_Array :=
-     (Create ("print",
-              (Param ("val"),
-               Param ("new_line", Kind_Bool, To_Primitive (True))),
-              Eval_Print'Access),
-      Create ("img",   (1 => Param ("val")),             Eval_Image'Access),
-      Create ("dump",  (1 => Param ("node", Kind_Node)), Eval_Dump'Access),
-      Create ("text",  (1 => Param ("node", Kind_Node)), Eval_Text'Access),
-      Create ("to_list",
-              (1 => Param ("it", Kind_Iterator)),
-              Eval_To_List'Access),
-      Create ("children_count",
-              (1 => Param ("node", Kind_Node)),
-              Eval_Children_Count'Access),
+     (Create
+        ("print",
+         (Param ("val"),
+          Param ("new_line", Kind_Bool, To_Primitive (True))),
+         Eval_Print'Access,
+         "Built-in print function. Prints whatever is passed as an argument"),
+
+      Create
+        ("img",
+         (1 => Param ("val")),
+         Eval_Image'Access,
+         "Return a string representation of an object"),
+
+      Create
+        ("dump",
+         (1 => Param ("node", Kind_Node)),
+         Eval_Dump'Access,
+         "Given an ast node, return a structured dump of the subtree"),
+
+      Create
+        ("text",
+         (1 => Param ("node", Kind_Node)),
+         Eval_Text'Access,
+         "Given an ast node, return its text"),
+
+      Create
+        ("to_list",
+         (1 => Param ("it", Kind_Iterator)),
+         Eval_To_List'Access,
+         "Transform an iterator into a list"),
+
+      Create
+        ("children_count",
+         (1 => Param ("node", Kind_Node)),
+         Eval_Children_Count'Access,
+         "Given a node, return the count of its children"),
 
       --  String builtins
 
-      Create ("starts_with",
-              (Param ("str", Kind_Str), Param ("prefix", Kind_Str)),
-              Eval_Starts_With'Access),
+      Create
+        ("starts_with",
+         (Param ("str", Kind_Str), Param ("prefix", Kind_Str)),
+         Eval_Starts_With'Access,
+         "Given a string, returns whether it starts with the given prefix"),
 
-      Create ("ends_with",
-              (Param ("str", Kind_Str), Param ("suffix", Kind_Str)),
-              Eval_Ends_With'Access)
+      Create
+        ("ends_with",
+         (Param ("str", Kind_Str), Param ("suffix", Kind_Str)),
+         Eval_Ends_With'Access,
+         "Given a string, returns whether it ends with the given prefix"),
+
+      Create
+        ("doc",
+         (1 => Param ("obj")),
+         Eval_Doc'Access,
+         "Given any object, return the documentation associated with it")
+
       );
 
    ------------------

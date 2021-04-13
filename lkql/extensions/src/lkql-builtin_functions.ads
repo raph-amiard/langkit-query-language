@@ -61,6 +61,9 @@ package LKQL.Builtin_Functions is
    function Eval_Ends_With
      (Ctx : Eval_Context; Args : Primitive_Array) return Primitive;
 
+   function Eval_Doc
+     (Ctx : Eval_Context; Args : Primitive_Array) return Primitive;
+
    type Builtin_Function_Array is
       array (Positive range <>) of Builtin_Function;
 
