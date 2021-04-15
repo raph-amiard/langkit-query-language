@@ -87,7 +87,7 @@ can use a `Block expression`_.
 
 .. code-block:: lkql
 
-    ## Add two integers
+    |" Add two integers
     fun add(x, y) = {
         val ret = x + y;
         ret
@@ -143,16 +143,16 @@ They're part of the AST and are directly attached to the declaration.
 
 .. code-block:: lkql
 
-    # Doc comments
+    # Docstrings
 
-    ## Make a function that will capture ``closure_var`` and return the sum of
-    ## it plus its first argument
+    |" Make a function that will capture ``closure_var`` and return the sum of
+    |" it plus its first argument
     fun make_closure(closure_var) = {
         fun use_closure(x) = closure_var + x;
         use_closure
     }
 
-    ## Function that will add 12 to its first argument
+    |" Function that will add 12 to its first argument
     val adder = make_closure(12)
 
     print(make_closure(12))
